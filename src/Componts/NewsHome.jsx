@@ -59,7 +59,7 @@ const NewsHome = () => {
 
   return (
     <Container maxWidth="md" sx={{ my: 6 }}>
-      <h1 style={{color: "#343a62ff", textAlign:"start" , margin:"8px" , marginRight:"15px"}}>آخر الأخبار</h1>
+      <h2 style={{color: "#343a62ff", textAlign:"start" , margin:"8px" }}>آخر الأخبار</h2>
       <Box
         display="grid"
   gridTemplateColumns={{ xs: "1fr", sm: "1fr 1fr", md: "repeat(3, 1fr)" }}

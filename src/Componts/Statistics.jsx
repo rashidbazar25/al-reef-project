@@ -60,7 +60,7 @@ const Statistics = () => {
   }, [inView]);
 
   return (
-    <Container>
+    <Container >
 <Box
       ref={ref}
       sx={{

@@ -1,7 +1,7 @@
 import React from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography, Container } from "@mui/material";
 import { Gavel, ShieldCheck, Handshake } from "lucide-react";
-import { motion } from "framer-motion"; // استيراد framer-motion
+import { motion } from "framer-motion";
 
 const cards = [
   {
@@ -39,103 +39,124 @@ const cards = [
   },
 ];
 
-export default function ThreeCardsSection() {
+export default function OurWorks() {
   return (
-    <Box sx={{ p: { xs: 2, md: 4 }, backgroundColor: "#f9f6f2" }}>
-      <Grid container spacing={4} justifyContent="center">
-        {cards.map((card, index) => (
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            key={index}
-            sx={{ display: "flex", justifyContent: "center" }}
-          >
-            {/* إضافة motion.div */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.2, duration: 0.6, ease: "easeOut" }}
-            >
-              <Box
-                sx={{
-                  width: 280,
-                  height: 400,
-                  borderRadius: 3,
-                  boxShadow: "0px 6px 18px rgba(0,0,0,0.08)",
-                  overflow: "hidden",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Box sx={{ backgroundColor: "#343a62", color: "#fff", p: 2 }}>
-                  <Box
-                    sx={{
-                      width: 60,
-                      height: 60,
-                      borderRadius: "50%",
-                      backgroundColor: "#fff",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      mx: "auto",
-                      mb: 1,
-                    }}
-                  >
-                    {card.icon}
-                  </Box>
-                  <Typography
-                    variant="h6"
-                    sx={{ fontWeight: "bold", textAlign: "center" }}
-                  >
-                    {card.title}
-                  </Typography>
-                </Box>
+    <Container maxWidth="md" sx={{ my: 6 }}>
+   <h2 style={{textAlign:"start" , color :"#343a62", marginBottom:"50px", fontWeight:"bold" }}>قـطاعات عمــلنــا</h2>
 
+      <Box sx={{ p: { xs: 2, md: 4 }, backgroundColor: "#f9f6f2" }}>
+        <Grid container spacing={2} justifyContent="space-between"> {/* مسافة صغيرة جدًا */}
+          {cards.map((card, index) => (
+            <Grid
+              item
+              xs={12}   // شاشة صغيرة → كارد واحد
+              sm={6}    // شاشة متوسطة → كاردين
+              md={4}    // شاشة كبيرة → ثلاثة كروت في الصف
+              key={index}
+              sx={{ display: "flex", justifyContent: "center" ,alignItems:"center" }}
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: index * 0.2, duration: 0.6, ease: "easeOut" }}
+              >
                 <Box
                   sx={{
-                    flexGrow: 1,
-                    backgroundColor: "#f9f6f2",
-                    p: 2,
+                    
+                    width: 250,
+                    height: 380,
+                    borderRadius: 3,
+                    boxShadow: "0px 6px 18px rgba(0,0,0,0.08)",
+                    overflow: "hidden",
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent: "flex-start",
+                    cursor: "pointer",
+                    "&:hover": {
+                      transform: "scale(1.03)",
+                      boxShadow: "0px 10px 25px rgba(0,0,0,0.15)",
+                      transition: "all 0.3s ease",
+                    },
                   }}
                 >
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      textAlign: "right",
-                      mt: 1,
-                      fontSize: "14px",
-                      fontWeight: "600",
-                      color: "#555",
-                      marginBottom: "25px",
-                    }}
-                  >
-                    {card.desc}
-                  </Typography>
-
-                  {card.points.map((point, idx) => (
-                    <Typography
-                      key={idx}
-                      variant="body2"
+                  {/* رأس الكارد */}
+                  <Box sx={{ backgroundColor: "#343a62", color: "#fff", p: 2 }}>
+                    <Box
                       sx={{
-                        color: "#555",
-                        fontSize: "14px",
-                        mb: idx !== card.points.length - 1 ? 1 : 0,
+                        width: 50,
+                        height: 50,
+                        borderRadius: "50%",
+                        backgroundColor: "#fff",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        mx: "auto",
+                        mb: 1,
                       }}
                     >
-                      • {point}
+                      {card.icon}
+                    </Box>
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        fontWeight: "bold",
+                        textAlign: "center",
+                        fontSize: "1rem",
+                      }}
+                    >
+                      {card.title}
                     </Typography>
-                  ))}
+                  </Box>
+
+                  {/* محتوى الكارد */}
+                  <Box
+                    sx={{
+                      flexGrow: 1,
+                      backgroundColor: "#f9f6f2",
+                      p: 1.5,
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "flex-start",
+                    }}
+                  >
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        textAlign: "right",
+                        mt: 2,
+                        fontSize: "0.85rem",
+                        fontWeight: "600",
+                        color: "#555",
+                        mb: 2,
+                      }}
+                    >
+                      {card.desc}
+                    </Typography>
+
+                    {card.points.map((point, idx) => (
+
+                       <Typography
+                         key={idx}
+                         variant="body2"
+                          sx={{
+                            color: "#555",
+                            fontSize: "1rem",
+                            mb: 2, // زيادة المسافة بين النقاط
+                            display: "flex",
+                            alignItems: "flex-start",
+                            gap: 2, // إذا حبيت مسافة بين الرمز • والنص
+                            }}
+                           >
+                         • {point}
+                       </Typography>
+
+                    ))}
+                  </Box>
                 </Box>
-              </Box>
-            </motion.div>
-          </Grid>
-        ))}
-      </Grid>
-    </Box>
+              </motion.div>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    </Container>
   );
 }

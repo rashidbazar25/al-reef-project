@@ -20,8 +20,8 @@ const pages = [
   { label: "الرئيسية", path: "/" },
   { label: "عن المؤسسة ", path: "/about" },
   { label: "قطاعات عملنا", path: "/ourwork" },
-  { label: "برامجنا", path: "/programs" },
-  { label: "اخر الأخبار", path: "/news" },
+  { label: "برامجـنا", path: "/programs" },
+  { label: "آخر الأخـبار", path: "/news" },
   { label: "معهد الوادي العربي", path: "/wadi" },
   { label: "روضة أنوس", path: "/anous" },
 ];

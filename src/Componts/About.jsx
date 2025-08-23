@@ -53,7 +53,7 @@ const About = () => {
   ];
   return (
     <Container maxWidth="md" sx={{ my: 6 }}>
-      <h2 style={{textAlign:"center" , color :"#343a62", marginBottom:"50px", fontWeight:"bold" }}>عن المؤسسة</h2>
+      <h2 style={{textAlign:"start" , color :"#343a62", marginBottom:"50px", fontWeight:"bold" }}>عن المؤسسة</h2>
 
       <Box
         sx={{
@@ -82,7 +82,7 @@ const About = () => {
               textShadow: "1px 1px 3px rgba(0,0,0,0.1)",
             }}
           >
-            من نحن
+            من نحـن
           </Typography>
         </Box>
 
