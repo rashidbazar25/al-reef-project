@@ -9,51 +9,22 @@ const NewsDetail = () => {
   const [news, setNews] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const SPACE_ID = import.meta.env.VITE_CONTENTFUL_SPACE_ID;
-  const ACCESS_TOKEN = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN;
-  const ENVIRONMENT = import.meta.env.VITE_CONTENTFUL_ENVIRONMENT;
-
   useEffect(() => {
-    const fetchNews = async () => {
+    const fetchNewsDetail = async () => {
       try {
         setLoading(true);
-        const response = await fetch(
-          `https://graphql.contentful.com/content/v1/spaces/${SPACE_ID}/environments/${ENVIRONMENT}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${ACCESS_TOKEN}`,
-            },
-            body: JSON.stringify({
-              query: `
-                {
-                  newsCollection(where: { sys: { id: "${id}" } }, limit: 1) {
-                    items {
-                      sys { id }
-                      titel
-                      paragraf { json }
-                      date
-                      imges { url title description }
-                    }
-                  }
-                }
-              `,
-            }),
-          }
-        );
-
+        const response = await fetch(`/.netlify/functions/fetchNews?id=${id}`);
         const data = await response.json();
         setNews(data?.data?.newsCollection?.items[0] || null);
       } catch (err) {
-        console.error("Error fetching news:", err);
+        console.error("Error fetching news detail:", err);
         setNews(null);
       } finally {
         setTimeout(() => setLoading(false), 500);
       }
     };
 
-    fetchNews();
+    fetchNewsDetail();
   }, [id]);
 
   if (loading) return <LoadingDots />;
