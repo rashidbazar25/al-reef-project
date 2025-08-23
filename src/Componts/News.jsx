@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { Card, CardMedia, CardContent, Typography, Button, Box } from "@mui/material";
+import { Card, CardMedia, CardContent, Typography, Button, Box , Container} from "@mui/material";
 import LoadingDots from "./LoadingDots";
 
 const News = () => {
@@ -64,84 +64,100 @@ const News = () => {
   if (loading) return <LoadingDots />;
 
   return (
-    <Box
-      display="grid"
-      gridTemplateColumns="repeat(auto-fill, minmax(220px, 1fr))"
-      gap={3}
-      sx={{ backgroundColor: "#f9f6f2", p: 3 }}
+    <Container>
+      <h1 style={{color: "#343a62ff", textAlign:"center" , margin:"8px"}}>اخر الأخـبـار</h1>
+     <Box
+   display="grid"
+  gridTemplateColumns="repeat(auto-fill, minmax(350px, 1fr))"
+  gap={2} // أقل من 3
+  sx={{ backgroundColor: "#f9f6f2", p: 2 }} // padding أقل
+>
+  {news.map((item) => (
+    <Card
+      key={item.sys.id}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        boxShadow: 1,
+        borderRadius: 3,
+        backgroundColor: "#ffffff",
+        maxWidth: 350,
+        width: "100%",
+        fontFamily: `"Almarai", sans-serif`,
+      }}
     >
-      {news.map((item) => (
-        <Card
-          key={item.sys.id}
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            boxShadow: 3,
-            borderRadius: 3,
-            backgroundColor: "#ffffff",
-            transition: "transform 0.2s",
-            "&:hover": { transform: "scale(1.03)" },
-            height: "100%",
-            fontFamily: `"Almarai", sans-serif`,
-          }}
-        >
-          {item.imges?.url && (
-            <CardMedia
-              component="img"
-              sx={{ height: 140, objectFit: "cover" }}
-              image={item.imges.url}
-              alt={item.imges.title || item.titel}
-            />
-          )}
+      {item.imges?.url && (
+        <CardMedia
+          component="img"
+          sx={{ height: 140, objectFit: "cover" }}
+          image={item.imges.url}
+          alt={item.imges.title || item.titel}
+        />
+      )}
 
-          <CardContent sx={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-            <Box>
-              <Typography
-                variant="subtitle2"
-                sx={{ fontWeight: 500, color: "#343a62ff" }}
-              >
-                {new Date(item.date).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
-              </Typography>
+      <CardContent sx={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+        <Box>
+          <Typography
+            variant="subtitle2"
+            sx={{ fontWeight: 500, color: "#343a62ff" }}
+          >
+            {new Date(item.date).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
+          </Typography>
 
-              <Typography
-                variant="h6"
-                sx={{ fontWeight: "bold", color: "#343a62ff", mt: 0.5 }}
-              >
-                {item.titel}
-              </Typography>
+          <Typography
+            variant="h6"
+            sx={{ fontWeight: "bold", color: "#343a62ff", mt: 0.5 }}
+          >
+            {item.titel}
+          </Typography>
 
-              <Typography
-                variant="body2"
-                sx={{
-                  display: "-webkit-box",
-                  WebkitLineClamp: 4,
-                  WebkitBoxOrient: "vertical",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  color: "#777",
-                  lineHeight: 1.5,
-                  mt: 1,
-                }}
-              >
-                {getExcerpt(item.paragraf.json)}
-              </Typography>
-            </Box>
+          <Typography
+            variant="body2"
+            sx={{
+              display: "-webkit-box",
+              WebkitLineClamp: 4,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              color: "#777",
+              lineHeight: 1.5,
+              mt: 1,
+            }}
+          >
+            {getExcerpt(item.paragraf.json)}
+          </Typography>
+        </Box>
 
-            <Box sx={{ mt: 1 }}>
-              <Button
-                variant="text"
-                size="small"
-                sx={{ fontWeight: "bold", color: "#343a62ff", textTransform: "none" }}
-                component={Link}
-                to={`/news/${item.sys.id}`}
-              >
-                مشاهدة التفاصيل
-              </Button>
-            </Box>
-          </CardContent>
-        </Card>
-      ))}
-    </Box>
+        <Box sx={{ mt: 1 }}>
+         <Button
+  variant="text"
+  size="small"
+  component={Link}
+  to={`/news/${item.sys.id}`}
+  sx={{
+    fontSize:"18px",
+    fontWeight: "bold",
+    color: "#211353ff",
+    textTransform: "none",
+    borderRadius: 2, // نصف قطر الزوايا
+    px: 2,           // padding أفقي
+    py: 1,           // padding رأسي
+    transition: "all 0.3s ease", // حركة سلسة عند hover
+    "&:hover": {
+      backgroundColor: "#f0e6ff", // لون الخلفية عند التحويم
+      color: "#211353ff",         // يمكن تغيير اللون أيضًا إذا أحببت
+    },
+  }}
+>
+  مـشــاهـدة التـفاصـيل
+</Button>
+        </Box>
+      </CardContent>
+    </Card>
+  ))}
+</Box>
+    </Container>
+
   );
 };
 

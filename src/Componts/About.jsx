@@ -112,8 +112,13 @@ const About = () => {
 
 
  
-       <Box sx={{ p: { xs: 2, md: 4  }, backgroundColor: "#f9f6f2", mt: 18 }}>
-      <Grid container spacing={3} justifyContent="center" alignItems="stretch">
+       <Box sx={{ p: { xs: 2, md: 4  },
+        backgroundColor: "#f9f6f2", mt: 18,
+        display:"flex"
+
+        }}>
+      <Grid container spacing={3} justifyContent="space-between" alignItems="center">
+        
         {values.map((item, index) => (
           <Grid
             item
@@ -129,7 +134,7 @@ const About = () => {
               transition={{ duration: 0.6, delay: index * 0.2 }}
               whileHover={{ scale: 1.05, boxShadow: "0px 8px 20px rgba(0,0,0,0.15)" }}
               sx={{
-                width: 260,
+                width: 210,
                 p: 2.5,
                 borderRadius: 2,
                 boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.08)",

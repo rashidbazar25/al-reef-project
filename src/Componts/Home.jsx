@@ -2,6 +2,8 @@ import { Container } from "@mui/material";
 import { useEffect } from "react";
 import OurWorks from "./OurWorks";
 import About from "./About";
+import Statistics from "./Statistics";
+import NewsHome from "./NewsHome";
 
 export default function Home() {
   useEffect(() => {
@@ -17,6 +19,8 @@ export default function Home() {
         <Container>
             <About/>
             <OurWorks/>
+            <NewsHome/>
+            <Statistics/>
         </Container>
       </>
   )
