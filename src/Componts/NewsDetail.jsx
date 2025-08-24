@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { Box, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 import LoadingDots from "./LoadingDots";
 
 const NewsDetail = () => {
@@ -102,7 +102,10 @@ const NewsDetail = () => {
 
 <Box sx={{ mt: 2, "& p": { mb: 2, lineHeight: 1.8, fontSize: "1rem", color: "#333" } }}>
   {documentToReactComponents(news.paragraf.json)}
-</Box>    </Box>
+</Box>  
+<Divider sx={{ mt: 4, borderColor: "#d9d4c9" }} />
+
+  </Box>
   );
 };
 

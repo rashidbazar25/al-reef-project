@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { Card, CardMedia, CardContent, Typography, Button, Box , Container} from "@mui/material";
+import { Card, CardMedia, CardContent, Typography, Button, Box , Container, Divider} from "@mui/material";
 import LoadingDots from "./LoadingDots";
 
 const News = () => {
@@ -77,7 +77,7 @@ const News = () => {
      <Box
       
     display="grid"
-  gridTemplateColumns="repeat(auto-fill, minmax(250px, 1fr))"
+  gridTemplateColumns="repeat(auto-fill, minmax(250gpx, 1fr))"
   gap={2}
   sx={{ backgroundColor: "#f9f6f2" }}
 >
@@ -147,7 +147,7 @@ const News = () => {
   sx={{
     fontSize:"18px",
     fontWeight: "bold",
-    color: "#211353ff",
+    color: "#eeb60f",
     textTransform: "none",
     borderRadius: 2, // نصف قطر الزوايا
     px: 2,           // padding أفقي
@@ -155,7 +155,7 @@ const News = () => {
     transition: "all 0.3s ease", // حركة سلسة عند hover
     "&:hover": {
       backgroundColor: "#f0e6ff", // لون الخلفية عند التحويم
-      color: "#211353ff",         // يمكن تغيير اللون أيضًا إذا أحببت
+      color: "#bda355ff",         // يمكن تغيير اللون أيضًا إذا أحببت
     },
   }}
 >
@@ -166,6 +166,7 @@ const News = () => {
     </Card>
   ))}
 </Box>
+<Divider sx={{ mt: 4, borderColor: "#d9d4c9" }} />
     </Container>
 
   );

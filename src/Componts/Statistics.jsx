@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Divider, Grid, Typography, Container } from "@mui/material";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
-import { Container } from "@mui/material";
 
 const Statistics = () => {
   const [stats, setStats] = useState([]);
@@ -10,7 +9,8 @@ const Statistics = () => {
 
   const SPACE_ID = import.meta.env.VITE_CONTENTFUL_STATS_SPACE_ID;
   const ACCESS_TOKEN = import.meta.env.VITE_CONTENTFUL_STATS_ACCESS_TOKEN;
-  const ENVIRONMENT = import.meta.env.VITE_CONTENTFUL_STATS_ENVIRONMENT || "master";
+  const ENVIRONMENT =
+    import.meta.env.VITE_CONTENTFUL_STATS_ENVIRONMENT || "master";
 
   const { ref, inView } = useInView({
     threshold: 0.3,
@@ -60,49 +60,57 @@ const Statistics = () => {
   }, [inView]);
 
   return (
-    <Container >
-        
-     <Box
-      ref={ref}
+    <Container
       sx={{
-        backgroundColor: "#f9f6f2",
-        py: 8,
-        px: 2,
-        textAlign: "center",
+        px: "20px !important", // مسافة جانبية يمين ويسار 20 بكسل
       }}
     >
-   <Grid 
-  container 
-  spacing={4} 
-  justifyContent="space-evenly"
-  sx={{ flexDirection: { xs: "column", sm: "row-reverse" } }} // يعكس ترتيب الأعمدة على الشاشات الكبيرة
->
-  {stats.map((item, index) => (
-    <Grid 
-      item 
-      xs={6} 
-      sm={3} 
-      key={index}
-      sx={{ textAlign: "right" }}
-    >
-      <Typography 
-        variant="h3" 
-        sx={{ fontWeight: "bold", color: "#343a62ff", textAlign:"center" ,direction: "rtl" }}
+      <Box
+        ref={ref}
+        sx={{
+          backgroundColor: "#f9f6f2",
+          py: 8,
+          px: 2,
+          textAlign: "center",
+        }}
       >
-        {hasCounted ? <CountUp end={item.number} duration={2} /> : 0}+
-      </Typography>
-      <Typography 
-        variant="subtitle1" 
-        sx={{ mt: 1, color: "#777", fontWeight:"700",textAlign:"center", direction: "rtl" }}
-      >
-        {item.title}
-      </Typography>
-    </Grid>
-  ))}
-</Grid>
-    </Box>
+        <Grid
+          container
+          spacing={4}
+          justifyContent="space-evenly"
+          sx={{ flexDirection: { xs: "column", sm: "row-reverse" } }} // يعكس ترتيب الأعمدة على الشاشات الكبيرة
+        >
+          {stats.map((item, index) => (
+            <Grid item xs={6} sm={3} key={index} sx={{ textAlign: "right" }}>
+              <Typography
+                variant="h3"
+                sx={{
+                  fontWeight: "bold",
+                  color: "#eeb60f",
+                  textAlign: "center",
+                  direction: "rtl",
+                }}
+              >
+                {hasCounted ? <CountUp end={item.number} duration={2} /> : 0}+
+              </Typography>
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  mt: 1,
+                  color: "#000",
+                  fontWeight: "700",
+                  textAlign: "center",
+                  direction: "rtl",
+                }}
+              >
+                {item.title}
+              </Typography>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+      <Divider sx={{ mt: 4, borderColor: "#d9d4c9" }} />
     </Container>
-    
   );
 };
 

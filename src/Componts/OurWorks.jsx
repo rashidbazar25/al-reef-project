@@ -1,11 +1,11 @@
 import React from "react";
-import { Box, Grid, Typography, Container } from "@mui/material";
+import { Box, Grid, Typography, Container, Divider } from "@mui/material";
 import { Gavel, ShieldCheck, Handshake } from "lucide-react";
 import { motion } from "framer-motion";
 
 const cards = [
   {
-    icon: <Handshake size={32} color="#343a62" />,
+    icon: <Handshake size={32} color="#000" />,
     title: "قطاع الرعاية المجتمعية",
     desc: "يركز هذا القطاع على توفير الرعاية الشاملة للمجتمع المحلي، مع التركيز على الفئات الأكثر احتياجاً.",
     points: [
@@ -16,7 +16,7 @@ const cards = [
     ],
   },
   {
-    icon: <ShieldCheck size={32} color="#343a62" />,
+    icon: <ShieldCheck size={32} color="#000" />,
     title: "قطاع الحماية والتمكين",
     desc: "يهدف إلى حماية المرأة والطفل وتمكينهما من خلال برامج التدريب والتأهيل المهني.",
     points: [
@@ -27,7 +27,7 @@ const cards = [
     ],
   },
   {
-    icon: <Gavel size={32} color="#343a62" />,
+    icon: <Gavel size={32} color="#000" />,
     title: "قطاع الحقوق",
     desc: "يعمل على نشر الوعي الحقوقي وحماية حقوق المرأة والطفل في المجتمع.",
     points: [
@@ -43,11 +43,11 @@ export default function OurWorks() {
   return (
     <Container maxWidth="md" sx={{ my: 6 }}>
    <h2 style={{textAlign:"start" ,
-     color :"#343a62",
+     color :"#000",
       marginBottom:"50px",
        fontWeight:"bold" ,
         paddingBottom: "4px",      
-              borderBottom: "3px solid #343a62ff", 
+              borderBottom: "3px solid #eeb60f", 
              display: "inline-block", 
         }}>قـطاعات عمــلنــا</h2>
 
@@ -86,7 +86,7 @@ export default function OurWorks() {
                   }}
                 >
                   {/* رأس الكارد */}
-                  <Box sx={{ backgroundColor: "#343a62", color: "#fff", p: 2 }}>
+                  <Box sx={{ backgroundColor: "#eeb60f", color: "#000", p: 2 }}>
                     <Box
                       sx={{
                         width: 50,
@@ -164,6 +164,7 @@ export default function OurWorks() {
           ))}
         </Grid>
       </Box>
+      <Divider sx={{ mt: 4, borderColor: "#d9d4c9" }} />
     </Container>
   );
 }

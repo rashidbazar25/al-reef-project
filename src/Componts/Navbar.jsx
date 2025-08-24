@@ -35,8 +35,8 @@ export default function Navbar() {
       <AppBar
         position="sticky"
         sx={{
-          background: "#f9f6f2",
-          color: "#343a62ff",
+          background: "#eeb60f",
+          color: "#000",
           boxShadow: "0px 2px 8px rgba(0,0,0,0.1)"
         }}
       >
@@ -57,7 +57,7 @@ export default function Navbar() {
                   component={Link}
                   to={page.path}
                   sx={{
-                    color: "#343a62ff",
+                    color: "#000",
                     fontSize:18,
                     fontWeight: 600,
                     fontFamily: "Almarai , sans-serif",

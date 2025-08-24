@@ -8,7 +8,7 @@ const Footer = () => {
       component="footer"
       dir="rtl"
       sx={{
-        backgroundColor: "#343a62",
+        backgroundColor: "#555555",
         color: "#fff",
         py: 6,
         px: { xs: 3, md: 10 },
@@ -27,12 +27,12 @@ const Footer = () => {
 
           <Typography
             variant="subtitle1"
-            sx={{ fontWeight: "bold", color: "#f1f1f1", mb: 1  , fontSize:"18"}}
+            sx={{ fontWeight: "bold", color: "#fff", mb: 1  , fontSize:"18"}}
           >
             مؤسسة بنت الريف للتنمية والحقوق
           </Typography>
 
-          <Typography variant="body2" sx={{ color: "#ccc", lineHeight: 2.3 ,fontWeight: "bold", fontSize:"18"}}>
+          <Typography variant="body2" sx={{ color: "#fff", lineHeight: 2.3 ,fontWeight: "bold", fontSize:"18"}}>
             نسعى إلى توسيع عجلة التنمية وتفعيل دور المرأة اليمنية وتمكينها
             في مختلف المجالات.
           </Typography>
@@ -96,17 +96,35 @@ const Footer = () => {
         </Grid>
       </Grid>
 
-      <Divider sx={{ mt: 4, borderColor: "#555" }} />
+      <Divider sx={{ mt: 4, borderColor: "#fff" }} />
 
       <Typography variant="body2" sx={{ textAlign: "center", mt: 2 }}>
          مؤسـسة بنت الريف للتنمية والحقوق
          © {new Date().getFullYear()}
       </Typography>
 
-       <Typography variant="body2" sx={{ textAlign: "left" }}>
-        BeZar For Programming <br/> 776049562
-         
-      </Typography>
+      
+
+       <Typography
+  variant="body2"
+  sx={{
+    mt: 3,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    textAlign: "center",
+    gap: 0.5
+  }}
+>
+  <span>BeZar For Programming</span>
+  <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
+    <Phone size={14} />
+    776049562
+  </span>
+</Typography>
+
+
+     
     </Box>
   );
 };

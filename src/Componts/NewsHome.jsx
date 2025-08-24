@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { Card, CardMedia, CardContent, Typography, Button, Box , Container} from "@mui/material";
+import { Card, CardMedia, CardContent, Typography, Button, Box , Container, Divider} from "@mui/material";
 
 const NewsHome = () => {
   const [news, setNews] = useState([]);
@@ -60,11 +60,11 @@ const NewsHome = () => {
   return (
     <Container maxWidth="md" sx={{ my: 6 }}>
       <h2 style={{textAlign:"start" , 
-        color :"#343a62",
+        color :"#000",
          marginBottom:"50px", 
          fontWeight:"bold"  ,
          paddingBottom: "4px",      
-           borderBottom: "3px solid #343a62ff", 
+           borderBottom: "3px solid #eeb60f", 
           display: "inline-block",}}>آخر الأخبار</h2>
       <Box
         display="grid"
@@ -139,7 +139,7 @@ const NewsHome = () => {
         sx={{
           fontSize:"16px",
           fontWeight: "bold",
-          color: "#211353ff",
+          color: "#eeb60f",
           textTransform: "none",
           borderRadius: 2,
           px: 1.5,
@@ -158,6 +158,7 @@ const NewsHome = () => {
 </Card>
         ))}
       </Box>
+      <Divider sx={{ mt: 4, borderColor: "#d9d4c9" }} />
     </Container>
   );
 };

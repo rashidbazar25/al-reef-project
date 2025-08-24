@@ -1,4 +1,4 @@
-import { Container, Typography, Grid,Box } from "@mui/material";
+import { Container, Typography, Grid,Box, Divider } from "@mui/material";
 import React, { useEffect } from "react";
 import { CheckCircle2, Eye, Rocket, BookOpen, Scale, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
@@ -21,32 +21,32 @@ const About = () => {
 
     const values = [
     {
-      icon: <MessageCircle size={28} color="#fff" strokeWidth={2.5} />,
+      icon: <MessageCircle size={28} color="#000" strokeWidth={2.5} />,
       title: "رسالتنا",
       text: "نسعى إلى توسيع عجلة التنمية وتفعيل دور المرأة ",
     },
     {
-      icon: <Eye size={28} color="#fff" strokeWidth={2.5} />,
+      icon: <Eye size={28} color="#000" strokeWidth={2.5} />,
       title: "الشفافية",
       text: "نؤمن بالشفافية الكاملة في جميع أعمالنا",
     },
     {
-      icon: <Rocket size={28} color="#fff" strokeWidth={2.5} />,
+      icon: <Rocket size={28} color="#000" strokeWidth={2.5} />,
       title: "المبادرة والإبداع",
       text: "نبتكر حلولاً جديدة للتحديات المجتمعية",
     },
     {
-      icon: <BookOpen size={28} color="#fff" strokeWidth={2.5} />,
+      icon: <BookOpen size={28} color="#000" strokeWidth={2.5} />,
       title: "التعليم المستمر",
       text: "نستثمر في التعليم وتطوير المهارات",
     },
     {
-      icon: <Scale size={28} color="#fff" strokeWidth={2.5} />,
+      icon: <Scale size={28} color="#000" strokeWidth={2.5} />,
       title: "العدالة",
       text: "نسعى لتحقيق العدالة والمساواة للجميع",
     },
     {
-      icon: <CheckCircle2 size={28} color="#fff" strokeWidth={2.5} />,
+      icon: <CheckCircle2 size={28} color="#000" strokeWidth={2.5} />,
       title: "الالتزام",
       text: "نلتزم بتحقيق أهدافنا ووعودنا تجاه المجتمع",
     },
@@ -54,11 +54,11 @@ const About = () => {
   return (
     <Container maxWidth="md" sx={{ my: 6 }}>
       <h2 style={{textAlign:"start" , 
-        color :"#343a62",
+        color :"#000",
          marginBottom:"50px", 
          fontWeight:"bold"  ,
          paddingBottom: "4px",      
-           borderBottom: "3px solid #343a62ff", 
+           borderBottom: "3px solid #eeb60f", 
           display: "inline-block",
           }}>عن المؤسسة</h2>
 
@@ -76,7 +76,7 @@ const About = () => {
             sx={{
               width: "4px",
               height: "30px",
-              backgroundColor: "#343a62",
+              backgroundColor: "#eeb60f",
               borderRadius: "2px",
             }}
           />
@@ -84,7 +84,7 @@ const About = () => {
             variant="h4"
             sx={{
               mr: 2,
-              color: "#343a62",
+              color: "#000",
               fontWeight: "400",
               textShadow: "1px 1px 3px rgba(0,0,0,0.1)",
             }}
@@ -160,7 +160,7 @@ const About = () => {
                   width: 65,
                   height: 65,
                   borderRadius: "50%",
-                  backgroundColor: "#343a62",
+                  backgroundColor: "#eeb60f",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -174,7 +174,7 @@ const About = () => {
               {/* العنوان */}
               <Typography
                 variant="h6"
-                sx={{ fontWeight: "bold", color: "#343a62", mb: 1 }}
+                sx={{ fontWeight: "bold", color: "#000", mb: 1 }}
               >
                 {item.title}
               </Typography>
@@ -197,7 +197,8 @@ const About = () => {
         ))}
       </Grid>
     </Box>
-  
+
+<Divider sx={{ mt: 4, borderColor: "#d9d4c9" }} />
     </Container>
   );
 };
