@@ -32,16 +32,15 @@ const Bank = () => {
              display: "inline-block",   
              }}>البنوك</h2>
         <Box sx={{ backgroundColor: "#f9f6f2", py: 6, px: { xs: 2, md: 6 } }}>
-      <Grid container spacing={4} sx={{ direction: "rtl" }}>
+      <Grid container spacing={4} sx={{ direction: "rtl" , display:"flex",justifyContent:"center", alignItems:"center"}}>
         {banksData.map((bank, idx) => (
           <Grid item xs={12} sm={6} md={3} key={idx}>
             <Card
               sx={{
                 p: 3,
                 textAlign: "center",
-            
-               backgroundColor: "#f9f6f2",
                 width:"230px",
+                backgroundColor:"#f9f6f2",
                 borderRadius: 4,
                 boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
                 transition: "transform 0.3s, box-shadow 0.3s",
@@ -72,6 +71,8 @@ const Bank = () => {
                     mb: 2,
                     direction: "ltr",
                     fontWeight: 500,
+                    fontFamily: "Almarai , sans-serif"
+
                   }}
                 >
                   {bank.account}

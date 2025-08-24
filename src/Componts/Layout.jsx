@@ -1,6 +1,6 @@
 
 import { Outlet } from "react-router-dom";
-import { Box } from "@mui/material";
+import { Box  } from "@mui/material";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Bank from "./Bank";
@@ -8,7 +8,7 @@ import Bank from "./Bank";
 export default function Layout() {
   return (
     <>
-      <Navbar />
+        <Navbar />
       <Box sx={{ padding: 2, minHeight: "80vh" }}>
         <Outlet />
       </Box>

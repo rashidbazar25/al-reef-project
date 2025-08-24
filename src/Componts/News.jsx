@@ -89,7 +89,7 @@ const News = () => {
         flexDirection: "column",
         boxShadow: 1,
         borderRadius: 3,
-        backgroundColor: "#ffffff",
+         backgroundColor:"#f9f6f2",
         maxWidth: 350,
         width: "100%",
         fontFamily: `"Almarai", sans-serif`,
