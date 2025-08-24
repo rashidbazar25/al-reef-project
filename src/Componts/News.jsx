@@ -65,12 +65,21 @@ const News = () => {
 
   return (
     <Container>
-      <h1 style={{color: "#343a62ff", textAlign:"center" , margin:"8px"}}>اخر الأخـبـار</h1>
+      <h2 style={{textAlign:"start" , 
+        color :"#343a62",
+         marginBottom:"50px", 
+         fontWeight:"bold"  ,
+         paddingBottom: "4px",      
+           borderBottom: "3px solid #343a62ff", 
+          display: "inline-block",
+
+         }}>آخر الأخـبـار</h2>
      <Box
+      
    display="grid"
   gridTemplateColumns="repeat(auto-fill, minmax(350px, 1fr))"
   gap={2} // أقل من 3
-  sx={{ backgroundColor: "#f9f6f2", p: 2 }} // padding أقل
+  sx={{ backgroundColor: "#f9f6f2", p: 2  }} // padding أقل
 >
   {news.map((item) => (
     <Card
@@ -84,6 +93,7 @@ const News = () => {
         maxWidth: 350,
         width: "100%",
         fontFamily: `"Almarai", sans-serif`,
+        
       }}
     >
       {item.imges?.url && (

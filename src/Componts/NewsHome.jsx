@@ -59,11 +59,17 @@ const NewsHome = () => {
 
   return (
     <Container maxWidth="md" sx={{ my: 6 }}>
-      <h2 style={{color: "#343a62ff", textAlign:"start" , margin:"8px" }}>آخر الأخبار</h2>
+      <h2 style={{textAlign:"start" , 
+        color :"#343a62",
+         marginBottom:"50px", 
+         fontWeight:"bold"  ,
+         paddingBottom: "4px",      
+           borderBottom: "3px solid #343a62ff", 
+          display: "inline-block",}}>آخر الأخبار</h2>
       <Box
         display="grid"
   gridTemplateColumns={{ xs: "1fr", sm: "1fr 1fr", md: "repeat(3, 1fr)" }}
-  gap={1} // مسافة صغيرة جدًا بين الكروت
+  gap={2} // مسافة صغيرة جدًا بين الكروت
   sx={{ backgroundColor: "#f9f6f2", p: 1 }}
    
       >

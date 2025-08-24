@@ -42,7 +42,14 @@ const cards = [
 export default function OurWorks() {
   return (
     <Container maxWidth="md" sx={{ my: 6 }}>
-   <h2 style={{textAlign:"start" , color :"#343a62", marginBottom:"50px", fontWeight:"bold" }}>قـطاعات عمــلنــا</h2>
+   <h2 style={{textAlign:"start" ,
+     color :"#343a62",
+      marginBottom:"50px",
+       fontWeight:"bold" ,
+        paddingBottom: "4px",      
+              borderBottom: "3px solid #343a62ff", 
+             display: "inline-block", 
+        }}>قـطاعات عمــلنــا</h2>
 
       <Box sx={{ p: { xs: 2, md: 4 }, backgroundColor: "#f9f6f2" }}>
         <Grid container spacing={2} justifyContent="space-between"> {/* مسافة صغيرة جدًا */}

@@ -100,8 +100,9 @@ const NewsDetail = () => {
         />
       )}
 
-      <Box>{documentToReactComponents(news.paragraf.json)}</Box>
-    </Box>
+<Box sx={{ mt: 2, "& p": { mb: 2, lineHeight: 1.8, fontSize: "1rem", color: "#333" } }}>
+  {documentToReactComponents(news.paragraf.json)}
+</Box>    </Box>
   );
 };
 

@@ -20,19 +20,19 @@ const Footer = () => {
         <Grid item xs={12} md={3} sx={{ textAlign: "right" }}>
           <Typography
             variant="h6"
-            sx={{ mb: 2, fontWeight: "bold", color: "#fff" }}
+            sx={{ mb: 2, fontWeight: "bold", color: "#fff", fontSize:"18" }}
           >
-            بنت الريف
+            بنـت الريـف
           </Typography>
 
           <Typography
             variant="subtitle1"
-            sx={{ fontWeight: "bold", color: "#f1f1f1", mb: 1 }}
+            sx={{ fontWeight: "bold", color: "#f1f1f1", mb: 1  , fontSize:"18"}}
           >
             مؤسسة بنت الريف للتنمية والحقوق
           </Typography>
 
-          <Typography variant="body2" sx={{ color: "#ccc", lineHeight: 1.8 }}>
+          <Typography variant="body2" sx={{ color: "#ccc", lineHeight: 2.3 ,fontWeight: "bold", fontSize:"18"}}>
             نسعى إلى توسيع عجلة التنمية وتفعيل دور المرأة اليمنية وتمكينها
             في مختلف المجالات.
           </Typography>
@@ -40,47 +40,29 @@ const Footer = () => {
 
         {/* خدماتنا */}
         <Grid item xs={12} md={3}>
-          <Typography variant="h6" sx={{ mb: 2, fontWeight: "bold" }}>
-            خدماتنا
+          <Typography variant="h6" sx={{ mb: 2, fontWeight: "bold" , fontSize:"22" }}>
+            خــدمـاتـنا
           </Typography>
           <Typography variant="body2" sx={{ mb: 0.5 }}>
-            الرعاية المجتمعية
+            الـرعــاية المـجتمـعيـة
           </Typography>
           <Typography variant="body2" sx={{ mb: 0.5 }}>
-            الحماية والتمكين
+            الحمـاية والتمـكـين
           </Typography>
           <Typography variant="body2" sx={{ mb: 0.5 }}>
-            الحقوق
+            الحقــوق
           </Typography>
           <Typography variant="body2" sx={{ mb: 0.5 }}>
-            التدريب والتأهيل
+            التـدريب والتـأهيل
           </Typography>
           <Typography variant="body2">المشاريع الصغيرة</Typography>
         </Grid>
 
-        {/* روابط سريعة */}
-        <Grid item xs={12} md={3}>
-          <Typography variant="h6" sx={{ mb: 2, fontWeight: "bold" }}>
-            روابط سريعة
-          </Typography>
-          <Typography variant="body2" sx={{ mb: 0.5 }}>
-            عن المؤسسة
-          </Typography>
-          <Typography variant="body2" sx={{ mb: 0.5 }}>
-            قطاعات العمل
-          </Typography>
-          <Typography variant="body2" sx={{ mb: 0.5 }}>
-            المركز الإعلامي
-          </Typography>
-          <Typography variant="body2" sx={{ mb: 0.5 }}>
-            شركاؤنا
-          </Typography>
-          <Typography variant="body2">التطوع</Typography>
-        </Grid>
+        
 
         {/* تواصل معنا */}
         <Grid item xs={12} md={3} sx={{ textAlign: "right" }}>
-          <Typography variant="h6" sx={{ mb: 2, fontWeight: "bold" }}>
+          <Typography variant="h6" sx={{ mb: 2, fontWeight: "bold" ,  fontSize:"22"}}>
             تواصل معنا
           </Typography>
 
@@ -117,7 +99,13 @@ const Footer = () => {
       <Divider sx={{ mt: 4, borderColor: "#555" }} />
 
       <Typography variant="body2" sx={{ textAlign: "center", mt: 2 }}>
-        © {new Date().getFullYear()} مؤسسة بنت الريف للتنمية والحقوق
+         مؤسـسة بنت الريف للتنمية والحقوق
+         © {new Date().getFullYear()}
+      </Typography>
+
+       <Typography variant="body2" sx={{ textAlign: "left" }}>
+        BeZar For Programming <br/> 776049562
+         
       </Typography>
     </Box>
   );
