@@ -76,10 +76,10 @@ const News = () => {
          }}>آخر الأخـبـار</h2>
      <Box
       
-   display="grid"
-  gridTemplateColumns="repeat(auto-fill, minmax(350px, 1fr))"
-  gap={2} // أقل من 3
-  sx={{ backgroundColor: "#f9f6f2", p: 2  }} // padding أقل
+    display="grid"
+  gridTemplateColumns="repeat(auto-fill, minmax(250px, 1fr))"
+  gap={2}
+  sx={{ backgroundColor: "#f9f6f2" }}
 >
   {news.map((item) => (
     <Card
