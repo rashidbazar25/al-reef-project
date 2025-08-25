@@ -5,6 +5,19 @@ import { Box, Divider, Typography } from "@mui/material";
 import LoadingDots from "./LoadingDots";
 
 const NewsDetail = () => {
+
+  useEffect(() => {
+    document.title = "  مؤسسة بنت الريف  ";
+    const meta =
+      document.querySelector("meta[name='description']") ||
+      document.createElement("meta");
+    meta.name = "description";
+    meta.content =
+      "مرحبًا بكم في موقعنا لتتعرف اكثر عن مؤسسة بنت الريف";
+    if (!document.head.contains(meta)) document.head.appendChild(meta);
+  }, []);
+
+  
   const { id } = useParams();
   const [news, setNews] = useState(null);
   const [loading, setLoading] = useState(true);

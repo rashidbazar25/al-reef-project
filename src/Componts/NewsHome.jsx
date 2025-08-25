@@ -4,6 +4,19 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { Card, CardMedia, CardContent, Typography, Button, Box , Container, Divider} from "@mui/material";
 
 const NewsHome = () => {
+
+  useEffect(() => {
+    document.title = "  مؤسسة بنت الريف  ";
+    const meta =
+      document.querySelector("meta[name='description']") ||
+      document.createElement("meta");
+    meta.name = "description";
+    meta.content =
+      "مرحبًا بكم في موقعنا لتتعرف اكثر عن مؤسسة بنت الريف";
+    if (!document.head.contains(meta)) document.head.appendChild(meta);
+  }, []);
+
+  
   const [news, setNews] = useState([]);
 
   const SPACE_ID = import.meta.env.VITE_CONTENTFUL_SPACE_ID;

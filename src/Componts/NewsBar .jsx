@@ -7,6 +7,18 @@ const ENVIRONMENT = import.meta.env.VITE_CONTENTFUL_ENVIRONMENT;
 const ACCESS_TOKEN = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN;
 
 const NewsBar = ({ navbarHeight = 64 }) => {
+    useEffect(() => {
+    document.title = "  مؤسسة بنت الريف  ";
+    const meta =
+      document.querySelector("meta[name='description']") ||
+      document.createElement("meta");
+    meta.name = "description";
+    meta.content =
+      "مرحبًا بكم في موقعنا لتتعرف اكثر عن مؤسسة بنت الريف";
+    if (!document.head.contains(meta)) document.head.appendChild(meta);
+  }, []);
+
+  
   const [opacity, setOpacity] = useState(1);
   const [titles, setTitles] = useState([]);
 

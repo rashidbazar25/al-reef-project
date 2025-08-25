@@ -5,13 +5,13 @@ import { motion } from "framer-motion";
 
 const About = () => {
   useEffect(() => {
-    document.title = "الرئيسية | مؤسسة بن الريف | معهد الوادي العربي";
+    document.title = "  مؤسسة بنت الريف  ";
     const meta =
       document.querySelector("meta[name='description']") ||
       document.createElement("meta");
     meta.name = "description";
     meta.content =
-      "مرحبًا بكم في من نحن لتتعرف اكثر عن مؤسسة بن الريف";
+      "مرحبًا بكم في من نحن لتتعرف اكثر عن مؤسسة بنت الريف";
     if (!document.head.contains(meta)) document.head.appendChild(meta);
   }, []);
 

@@ -5,6 +5,19 @@ import { Card, CardMedia, CardContent, Typography, Button, Box , Container, Divi
 import LoadingDots from "./LoadingDots";
 
 const News = () => {
+
+  useEffect(() => {
+    document.title = "  مؤسسة بنت الريف  ";
+    const meta =
+      document.querySelector("meta[name='description']") ||
+      document.createElement("meta");
+    meta.name = "description";
+    meta.content =
+      "مرحبًا بكم في موقعنا لتتعرف اكثر عن مؤسسة بنت الريف";
+    if (!document.head.contains(meta)) document.head.appendChild(meta);
+  }, []);
+
+  
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
 

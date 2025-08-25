@@ -28,6 +28,20 @@ const pages = [
 ];
 
 export default function Navbar() {
+
+  useEffect(() => {
+    document.title = "  مؤسسة بنت الريف  ";
+    const meta =
+      document.querySelector("meta[name='description']") ||
+      document.createElement("meta");
+    meta.name = "description";
+    meta.content =
+      "مرحبًا بكم في موقعنا لتتعرف اكثر عن مؤسسة بنت الريف";
+    if (!document.head.contains(meta)) document.head.appendChild(meta);
+  }, []);
+
+
+  
   const [open, setOpen] = useState(false);
   const toggleDrawer = (value) => () => setOpen(value);
 

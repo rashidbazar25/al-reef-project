@@ -13,6 +13,19 @@ import {
 import { ContentCopy, CheckCircle } from "@mui/icons-material";
 
 const Bank = () => {
+
+  useEffect(() => {
+    document.title = "  مؤسسة بنت الريف  ";
+    const meta =
+      document.querySelector("meta[name='description']") ||
+      document.createElement("meta");
+    meta.name = "description";
+    meta.content =
+      "مرحبًا بكم في موقعنا لتتعرف اكثر عن مؤسسة بنت الريف";
+    if (!document.head.contains(meta)) document.head.appendChild(meta);
+  }, []);
+
+  
   const banksData = [
     { name: "بنك الكريمي", account: "123456789" },
     { name: "بنك بن دول", account: "98765432111" },
