@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -41,7 +41,7 @@ export default function Navbar() {
   }, []);
 
 
-  
+
   const [open, setOpen] = useState(false);
   const toggleDrawer = (value) => () => setOpen(value);
 

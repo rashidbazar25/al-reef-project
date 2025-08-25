@@ -1,5 +1,6 @@
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
+import { useEffect } from "react";
 
 
 export default function App() {
@@ -13,6 +14,6 @@ export default function App() {
       "مرحبًا بكم في موقعنا لتتعرف اكثر عن مؤسسة بنت الريف";
     if (!document.head.contains(meta)) document.head.appendChild(meta);
   }, []);
-  
+
   return <RouterProvider router={router} />;
 }

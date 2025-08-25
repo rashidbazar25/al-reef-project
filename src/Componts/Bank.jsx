@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Grid,
   Card,
@@ -25,7 +25,7 @@ const Bank = () => {
     if (!document.head.contains(meta)) document.head.appendChild(meta);
   }, []);
 
-  
+
   const banksData = [
     { name: "بنك الكريمي", account: "123456789" },
     { name: "بنك بن دول", account: "98765432111" },

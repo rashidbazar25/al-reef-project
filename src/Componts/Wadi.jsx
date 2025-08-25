@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const Wadi = () => {
 
@@ -13,7 +13,7 @@ const Wadi = () => {
     if (!document.head.contains(meta)) document.head.appendChild(meta);
   }, []);
 
-  
+
   return (
     <div>Wadi</div>
   )

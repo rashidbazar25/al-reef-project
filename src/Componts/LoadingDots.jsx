@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box } from "@mui/material";
 
 const LoadingDots = () => {
@@ -13,7 +13,7 @@ const LoadingDots = () => {
     if (!document.head.contains(meta)) document.head.appendChild(meta);
   }, []);
 
-  
+
   return (
     <Box
       sx={{

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Typography, Button, Container } from "@mui/material";
 import { motion } from "framer-motion";
 
@@ -14,7 +14,7 @@ const Section = () => {
     if (!document.head.contains(meta)) document.head.appendChild(meta);
   }, []);
 
-  
+
   return (
     <Box
       sx={{

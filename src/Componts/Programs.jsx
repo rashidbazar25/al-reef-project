@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const Programs = () => {
 
@@ -13,7 +13,7 @@ const Programs = () => {
     if (!document.head.contains(meta)) document.head.appendChild(meta);
   }, []);
 
-  
+
   return (
     <div>Programs</div>
   )

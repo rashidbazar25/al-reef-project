@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Grid, Typography, Container, Divider } from "@mui/material";
 import { Gavel, ShieldCheck, Handshake } from "lucide-react";
 import { motion } from "framer-motion";
@@ -52,7 +52,7 @@ export default function OurWorks() {
     if (!document.head.contains(meta)) document.head.appendChild(meta);
   }, []);
 
-  
+
   return (
     <Container maxWidth="md" sx={{ my: 6 }}>
    <h2 style={{textAlign:"start" ,

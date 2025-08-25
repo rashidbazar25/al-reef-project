@@ -15,7 +15,7 @@ const Statistics = () => {
     if (!document.head.contains(meta)) document.head.appendChild(meta);
   }, []);
 
-  
+
   const [stats, setStats] = useState([]);
   const [hasCounted, setHasCounted] = useState(false);
 

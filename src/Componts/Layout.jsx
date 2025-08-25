@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Bank from "./Bank";
 import NewsBar from "./NewsBar ";
+import { useEffect } from "react";
 
 export default function Layout() {
   useEffect(() => {
@@ -17,7 +18,7 @@ export default function Layout() {
       "مرحبًا بكم في موقعنا لتتعرف اكثر عن مؤسسة بنت الريف";
     if (!document.head.contains(meta)) document.head.appendChild(meta);
   }, []);
-  
+
   return (
     <>
         <Navbar />

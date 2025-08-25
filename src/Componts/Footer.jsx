@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Grid, Typography, Link, Divider } from "@mui/material";
 import { MapPin, Phone, Mail } from "lucide-react"; // استيراد الأيقونات
 
