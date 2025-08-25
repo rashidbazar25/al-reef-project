@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { Box, Divider, Typography } from "@mui/material";
 import LoadingDots from "./LoadingDots";
+import { Helmet } from "react-helmet";
 
 const NewsDetail = () => {
 
@@ -16,7 +17,6 @@ const NewsDetail = () => {
       "مرحبًا بكم في موقعنا لتتعرف اكثر عن مؤسسة بنت الريف";
     if (!document.head.contains(meta)) document.head.appendChild(meta);
   }, []);
-
   
   const { id } = useParams();
   const [news, setNews] = useState(null);
@@ -79,6 +79,14 @@ const NewsDetail = () => {
     );
 
   return (
+  <>
+   <Helmet>
+                <title> مؤسسة بنت الريف</title>
+                <meta
+                  name="description"
+                  content="تعرف على رؤية ورسالة مؤسسة بنت الريف وبرامجها المختلفة."
+                />
+              </Helmet>
     <Box
       sx={{
         maxWidth: 800,
@@ -119,6 +127,7 @@ const NewsDetail = () => {
 <Divider sx={{ mt: 4, borderColor: "#d9d4c9" }} />
 
   </Box>
+  </>
   );
 };
 

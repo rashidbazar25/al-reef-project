@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import Bank from "./Bank";
 import NewsBar from "./NewsBar ";
 import { useEffect } from "react";
+import { Helmet } from "react-helmet";
 
 export default function Layout() {
   useEffect(() => {
@@ -21,6 +22,14 @@ export default function Layout() {
 
   return (
     <>
+      {/* SEO */}
+       <Helmet>
+        <title> مؤسسة بنت الريف</title>
+        <meta
+          name="description"
+          content="تعرف على رؤية ورسالة مؤسسة بنت الريف وبرامجها المختلفة."
+        />
+      </Helmet>
         <Navbar />
         <NewsBar navbarHeight={64} />
         <Box sx={{ padding: 2, minHeight: "80vh" }}>

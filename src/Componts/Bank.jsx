@@ -11,6 +11,7 @@ import {
   Divider,
 } from "@mui/material";
 import { ContentCopy, CheckCircle } from "@mui/icons-material";
+import { Helmet } from "react-helmet";
 
 const Bank = () => {
 
@@ -45,6 +46,15 @@ const Bank = () => {
   };
 
   return (
+  <>
+  {/* SEO */}
+       <Helmet>
+        <title> مؤسسة بنت الريف</title>
+        <meta
+          name="description"
+          content="تعرف على رؤية ورسالة مؤسسة بنت الريف وبرامجها المختلفة."
+        />
+      </Helmet>
     <Container
       maxWidth="md"
       sx={{
@@ -152,6 +162,7 @@ const Bank = () => {
 
       <Divider sx={{ mt: 4, borderColor: "#d9d4c9" }} />
     </Container>
+  </>
   );
 };
 

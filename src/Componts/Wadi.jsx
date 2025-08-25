@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { Helmet } from 'react-helmet';
 
 const Wadi = () => {
 
@@ -15,7 +16,15 @@ const Wadi = () => {
 
 
   return (
-    <div>Wadi</div>
+    <>
+     <Helmet>
+                <title> مؤسسة بنت الريف</title>
+                <meta
+                  name="description"
+                  content="تعرف على رؤية ورسالة مؤسسة بنت الريف وبرامجها المختلفة."
+                />
+              </Helmet>
+    </>
   )
 }
 

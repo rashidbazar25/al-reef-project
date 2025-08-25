@@ -2,6 +2,7 @@ import { Container, Typography, Grid,Box, Divider } from "@mui/material";
 import React, { useEffect } from "react";
 import { CheckCircle2, Eye, Rocket, BookOpen, Scale, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet";
 
 const About = () => {
   useEffect(() => {
@@ -52,6 +53,16 @@ const About = () => {
     },
   ];
   return (
+   <>
+    {/* SEO */}
+       <Helmet>
+        <title> مؤسسة بنت الريف</title>
+        <meta
+          name="description"
+          content="تعرف على رؤية ورسالة مؤسسة بنت الريف وبرامجها المختلفة."
+        />
+      </Helmet>
+        {/* SEO */}
     <Container maxWidth="md" sx={{ my: 6 }}>
       <h2 style={{textAlign:"start" , 
         color :"#000",
@@ -200,6 +211,7 @@ const About = () => {
 
 <Divider sx={{ mt: 4, borderColor: "#d9d4c9" }} />
     </Container>
+   </>
   );
 };
 

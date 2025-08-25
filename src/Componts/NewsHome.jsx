@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { Card, CardMedia, CardContent, Typography, Button, Box , Container, Divider} from "@mui/material";
+import { Helmet } from "react-helmet";
 
 const NewsHome = () => {
 
@@ -16,7 +17,7 @@ const NewsHome = () => {
     if (!document.head.contains(meta)) document.head.appendChild(meta);
   }, []);
 
-  
+
   const [news, setNews] = useState([]);
 
   const SPACE_ID = import.meta.env.VITE_CONTENTFUL_SPACE_ID;
@@ -71,6 +72,14 @@ const NewsHome = () => {
  
 
   return (
+   <>
+    <Helmet>
+                <title> مؤسسة بنت الريف</title>
+                <meta
+                  name="description"
+                  content="تعرف على رؤية ورسالة مؤسسة بنت الريف وبرامجها المختلفة."
+                />
+              </Helmet>
     <Container maxWidth="md" sx={{ my: 6 }}>
       <h2 style={{textAlign:"start" , 
         color :"#000",
@@ -173,6 +182,7 @@ const NewsHome = () => {
       </Box>
       <Divider sx={{ mt: 4, borderColor: "#d9d4c9" }} />
     </Container>
+   </>
   );
 };
 

@@ -8,6 +8,7 @@ import ThemeWrapper from "./Componts/ThemeWrapper.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThemeWrapper>
+      
       <App />
     </ThemeWrapper>
   </StrictMode>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Divider, Grid, Typography, Container } from "@mui/material";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
+import { Helmet } from "react-helmet";
 
 const Statistics = () => {
   useEffect(() => {
@@ -72,6 +73,14 @@ const Statistics = () => {
   }, [inView]);
 
   return (
+  <>
+   <Helmet>
+                <title> مؤسسة بنت الريف</title>
+                <meta
+                  name="description"
+                  content="تعرف على رؤية ورسالة مؤسسة بنت الريف وبرامجها المختلفة."
+                />
+              </Helmet>
     <Container
       sx={{
         px: "20px !important", // مسافة جانبية يمين ويسار 20 بكسل
@@ -123,6 +132,7 @@ const Statistics = () => {
       </Box>
       <Divider sx={{ mt: 4, borderColor: "#d9d4c9" }} />
     </Container>
+  </>
   );
 };
 

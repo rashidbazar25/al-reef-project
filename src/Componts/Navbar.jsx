@@ -16,6 +16,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/logo.jpg";
+import { Helmet } from "react-helmet";
 
 const pages = [
   { label: "الرئيسية", path: "/" },
@@ -49,6 +50,14 @@ export default function Navbar() {
 
   return (
     <>
+      {/* SEO */}
+           <Helmet>
+            <title> مؤسسة بنت الريف</title>
+            <meta
+              name="description"
+              content="تعرف على رؤية ورسالة مؤسسة بنت الريف وبرامجها المختلفة."
+            />
+          </Helmet>
       <AppBar
         position="sticky"
         sx={{

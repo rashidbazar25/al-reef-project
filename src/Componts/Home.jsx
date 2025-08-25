@@ -5,6 +5,7 @@ import About from "./About";
 import Statistics from "./Statistics";
 import NewsHome from "./NewsHome";
 import Section from "./Section";
+import { Helmet } from "react-helmet";
 
 export default function Home() {
   useEffect(() => {
@@ -18,9 +19,17 @@ export default function Home() {
     if (!document.head.contains(meta)) document.head.appendChild(meta);
   }, []);
 
-  
+
   return(
       <>
+      {/* SEO */}
+       <Helmet>
+        <title> مؤسسة بنت الريف</title>
+        <meta
+          name="description"
+          content="تعرف على رؤية ورسالة مؤسسة بنت الريف وبرامجها المختلفة."
+        />
+      </Helmet>
         <Container>
           <Section/>
             <About/>

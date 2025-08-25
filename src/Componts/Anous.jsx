@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Helmet } from "react-helmet";
 
 const Anous = () => {
 useEffect(() => {
@@ -13,9 +14,18 @@ useEffect(() => {
   }, []);
 
   return (
-   <div>
-     
-    </div>
+  
+  <>
+   {/* SEO */}
+       <Helmet>
+        <title> مؤسسة بنت الريف</title>
+        <meta
+          name="description"
+          content="تعرف على رؤية ورسالة مؤسسة بنت الريف وبرامجها المختلفة."
+        />
+      </Helmet>
+        {/* SEO */}
+  </>
   )
 }
 

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Box, Typography, Button, Container } from "@mui/material";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet";
 
 const Section = () => {
     useEffect(() => {
@@ -16,6 +17,14 @@ const Section = () => {
 
 
   return (
+    <>
+     <Helmet>
+                <title> مؤسسة بنت الريف</title>
+                <meta
+                  name="description"
+                  content="تعرف على رؤية ورسالة مؤسسة بنت الريف وبرامجها المختلفة."
+                />
+              </Helmet>
     <Box
       sx={{
         height: { xs: "80vh", md: "90vh" },
@@ -102,6 +111,7 @@ const Section = () => {
         </motion.div>
       </Container>
     </Box>
+    </>
   );
 };
 

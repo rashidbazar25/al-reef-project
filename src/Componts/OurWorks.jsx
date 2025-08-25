@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Box, Grid, Typography, Container, Divider } from "@mui/material";
 import { Gavel, ShieldCheck, Handshake } from "lucide-react";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet";
 
 const cards = [
   {
@@ -54,6 +55,14 @@ export default function OurWorks() {
 
 
   return (
+ <>
+     <Helmet>
+                <title> مؤسسة بنت الريف</title>
+                <meta
+                  name="description"
+                  content="تعرف على رؤية ورسالة مؤسسة بنت الريف وبرامجها المختلفة."
+                />
+              </Helmet>
     <Container maxWidth="md" sx={{ my: 6 }}>
    <h2 style={{textAlign:"start" ,
      color :"#000",
@@ -179,5 +188,6 @@ export default function OurWorks() {
       </Box>
       <Divider sx={{ mt: 4, borderColor: "#d9d4c9" }} />
     </Container>
+ </>
   );
 }

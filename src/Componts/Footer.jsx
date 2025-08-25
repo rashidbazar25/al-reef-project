@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Box, Grid, Typography, Link, Divider } from "@mui/material";
 import { MapPin, Phone, Mail } from "lucide-react"; // استيراد الأيقونات
+import { Helmet } from "react-helmet";
 
 const Footer = () => {
   useEffect(() => {
@@ -16,6 +17,16 @@ const Footer = () => {
 
   
   return (
+   <>
+    {/* SEO */}
+       <Helmet>
+        <title> مؤسسة بنت الريف</title>
+        <meta
+          name="description"
+          content="تعرف على رؤية ورسالة مؤسسة بنت الريف وبرامجها المختلفة."
+        />
+      </Helmet>
+        {/* SEO */}
     <Box
       component="footer"
       dir="rtl"
@@ -138,6 +149,7 @@ const Footer = () => {
 
      
     </Box>
+   </>
   );
 };
 

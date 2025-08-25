@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { Card, CardMedia, CardContent, Typography, Button, Box , Container, Divider} from "@mui/material";
 import LoadingDots from "./LoadingDots";
+import { Helmet } from "react-helmet";
 
 const News = () => {
 
@@ -17,7 +18,7 @@ const News = () => {
     if (!document.head.contains(meta)) document.head.appendChild(meta);
   }, []);
 
-  
+
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -77,7 +78,18 @@ const News = () => {
   if (loading) return <LoadingDots />;
 
   return (
+    
+   <>
+    {/* SEO */}
+             <Helmet>
+              <title> مؤسسة بنت الريف</title>
+              <meta
+                name="description"
+                content="تعرف على رؤية ورسالة مؤسسة بنت الريف وبرامجها المختلفة."
+              />
+            </Helmet>
     <Container>
+       
       <h2 style={{textAlign:"start" , 
         color :"#343a62",
          marginBottom:"50px", 
@@ -181,6 +193,7 @@ const News = () => {
 </Box>
 <Divider sx={{ mt: 4, borderColor: "#d9d4c9" }} />
     </Container>
+   </>
 
   );
 };
