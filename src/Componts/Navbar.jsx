@@ -14,7 +14,8 @@ import {
   Container,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import logo from "../assets/logo.jpg";
 
 const pages = [
   { label: "الرئيسية", path: "/" },
@@ -30,14 +31,16 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const toggleDrawer = (value) => () => setOpen(value);
 
+  const location = useLocation(); // هنا نحصل على المسار الحالي
+
   return (
     <>
       <AppBar
         position="sticky"
         sx={{
-          background: "#eeb60f",
-          color: "#000",
-          boxShadow: "0px 2px 8px rgba(0,0,0,0.1)"
+          background: "#fff",
+          color: "#343a62",
+          boxShadow: "0px 2px 8px rgba(0,0,0,0.08)",
         }}
       >
         <Container maxWidth="lg">
@@ -47,44 +50,67 @@ export default function Navbar() {
               justifyContent: "space-between",
             }}
           >
-          
-           
             {/* روابط التنقل على اليمين */}
             <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
-              {pages.map((page) => (
-                <Button
-                  key={page.path}
-                  component={Link}
-                  to={page.path}
-                  sx={{
-                    color: "#000",
-                    fontSize:18,
-                    fontWeight: 600,
-                    fontFamily: "Almarai , sans-serif",
-                    "&:hover": {
-                      background: "rgba(160, 157, 157, 0.15)",
+              {pages.map((page) => {
+                const isActive = location.pathname === page.path; // الرابط النشط
+                return (
+                  <Button
+                    key={page.path}
+                    component={Link}
+                    to={page.path}
+                    sx={{
+                      color: isActive ? "#eeb60f" : "#000",
+                      fontSize: 18,
+                      fontWeight: 600,
+                      fontFamily: "Almarai, sans-serif",
+                      transition: "0.3s",
+                      background: isActive ? "rgba(238,182,15,0.1)" : "transparent",
                       borderRadius: 2,
-                    },
-                  }}
-                >
-                  {page.label}
-                </Button>
-              ))}
+                      "&:hover": {
+                        color: "#eeb60f",
+                        background: "rgba(238, 182, 15, 0.1)",
+                      },
+                    }}
+                  >
+                    {page.label}
+                  </Button>
+                );
+              })}
             </Box>
 
-             <Typography
-              variant="h6"
-              sx={{ fontWeight: "bold", cursor: "pointer" , textDecoration: "none", fontFamily:" Almarai , sans-serif" }}
+            {/* شعار + اسم المؤسسة */}
+            <Box
               component={Link}
               to="/"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                textDecoration: "none",
+              }}
             >
-              شعار
-            </Typography>
-
+              <Box
+                component="img"
+                src={logo}
+                alt="شعار الموقع"
+                sx={{ height: 45, mr: 1 }}
+              />
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: 500,
+                  fontFamily: "Almarai, sans-serif",
+                  color: "#343a62",
+                  lineHeight: 1.2,
+                }}
+              >
+                مؤسسة <br /> بنت الريف
+              </Typography>
+            </Box>
 
             {/* زر القائمة للجوال */}
             <Box sx={{ display: { xs: "flex", md: "none" } }}>
-              <IconButton color="inherit" onClick={toggleDrawer(true)}>
+              <IconButton sx={{ color: "#343a62" }} onClick={toggleDrawer(true)}>
                 <MenuIcon />
               </IconButton>
             </Box>
@@ -99,17 +125,26 @@ export default function Navbar() {
             القائمة
           </Typography>
           <List>
-            {pages.map((page) => (
-              <ListItem key={page.path} disablePadding>
-                <ListItemButton
-                  component={Link}
-                  to={page.path}
-                  onClick={toggleDrawer(false)}
-                >
-                  <ListItemText primary={page.label} />
-                </ListItemButton>
-              </ListItem>
-            ))}
+            {pages.map((page) => {
+              const isActive = location.pathname === page.path;
+              return (
+                <ListItem key={page.path} disablePadding>
+                  <ListItemButton
+                    component={Link}
+                    to={page.path}
+                    onClick={toggleDrawer(false)}
+                    sx={{
+                      background: isActive ? "rgba(238,182,15,0.1)" : "transparent",
+                    }}
+                  >
+                    <ListItemText
+                      primary={page.label}
+                      sx={{ color: isActive ? "#eeb60f" : "#343a62" }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              );
+            })}
           </List>
         </Box>
       </Drawer>

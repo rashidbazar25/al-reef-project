@@ -4,6 +4,7 @@ import OurWorks from "./OurWorks";
 import About from "./About";
 import Statistics from "./Statistics";
 import NewsHome from "./NewsHome";
+import Section from "./Section";
 
 export default function Home() {
   useEffect(() => {
@@ -17,6 +18,7 @@ export default function Home() {
   return(
       <>
         <Container>
+          <Section/>
             <About/>
             <OurWorks/>
             <NewsHome/>
