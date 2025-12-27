@@ -7,6 +7,7 @@ import Bank from "./Bank";
 import NewsBar from "./NewsBar ";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet";
+import Shrca from "./Shrca";
 
 export default function Layout() {
   useEffect(() => {
@@ -35,6 +36,7 @@ export default function Layout() {
         <Box sx={{ padding: 2, minHeight: "80vh" }}>
         <Outlet />
       </Box>
+      <Shrca/>
       <Bank/>
       <Footer/>
     </>
