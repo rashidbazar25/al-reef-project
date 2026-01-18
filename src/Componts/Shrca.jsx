@@ -78,7 +78,7 @@ const Shrca = () => {
                 },
               }}
             >
-              {[...images, ...images , ...images ].map((img, idx) => (
+              {[...images, ...images  ].map((img, idx) => (
                 <Card
                   key={idx}
                   sx={{

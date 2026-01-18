@@ -126,26 +126,6 @@ const Footer = () => {
          © {new Date().getFullYear()}
       </Typography>
 
-      
-
-       <Typography
-  variant="body2"
-  sx={{
-    mt: 3,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    textAlign: "center",
-    gap: 0.5
-  }}
->
-  <span>BeZar For Programming</span>
-  <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-    <Phone size={14} />
-    776049562
-  </span>
-</Typography>
-
 
      
     </Box>

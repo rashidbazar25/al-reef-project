@@ -56,6 +56,7 @@ const Bank = () => {
         />
       </Helmet>
     <Container
+    id="donate-section"
       maxWidth="md"
       sx={{
         my: 6,

@@ -86,27 +86,22 @@ const Section = () => {
           </Typography>
 
           <Box sx={{ display: "flex", justifyContent: "center", gap: 2, flexWrap: "wrap" }}>
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: "#eeb60f",
-                color: "#000",
-                fontWeight: 600,
-                "&:hover": { backgroundColor: "#f3c10f" },
-              }}
-            >
-              تبرع الآن
-            </Button>
-            <Button
-              variant="outlined"
-              sx={{
-                color: "#000",
-                borderColor: "#000",
-                "&:hover": { borderColor: "#eeb60f", color: "#eeb60f" },
-              }}
-            >
-              تطوع معنا
-            </Button>
+        
+        <Button
+  variant="outlined"
+  onClick={() => {
+    document
+      .getElementById("donate-section")
+      ?.scrollIntoView({ behavior: "smooth" });
+  }}
+  sx={{
+    color: "#000",
+    borderColor: "#000",
+    "&:hover": { borderColor: "#eeb60f", color: "#eeb60f" },
+  }}
+>
+  تبرع الآن
+</Button>
           </Box>
         </motion.div>
       </Container>
