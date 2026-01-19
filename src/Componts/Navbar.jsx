@@ -22,7 +22,6 @@ const pages = [
   { label: "الرئيسية", path: "/" },
   { label: "عن المؤسسة ", path: "/about" },
   { label: "قطاعات عملنا", path: "/ourwork" },
-  { label: "برامجـنا", path: "/programs" },
   { label: "آخر الأخـبار", path: "/news" },
   { label: "معهد الوادي العربي", path: "/wadi" },
   { label: "روضة أنوس", path: "/anous" },

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { motion } from "framer-motion";
+import logo from "../assets/logo.jpg";
 
 const SPACE_ID = import.meta.env.VITE_CONTENTFUL_SPACE_ID;
 const ENVIRONMENT = import.meta.env.VITE_CONTENTFUL_ENVIRONMENT;
@@ -103,7 +104,7 @@ const NewsBar = ({ navbarHeight = 64 }) => {
         >
           <motion.div
             animate={{ x: ["-100%", "100%"] }}
-            transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
+            transition={{ repeat: Infinity, duration: 80, ease: "linear" }}
             style={{ display: "inline-block" }}
           >
             {titles.map((news) => (
