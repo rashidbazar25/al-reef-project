@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Container,
   Card,
   CardMedia,
+  IconButton,
   Divider,
 } from "@mui/material";
+import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import { Helmet } from "react-helmet";
 
 import shreek1 from "../assets/shreek1.png";
@@ -15,15 +17,19 @@ import shreek5 from "../assets/shreek5.png";
 import shreek7 from "../assets/shreek7.jpg";
 
 const Shrca = () => {
-  useEffect(() => {
-    document.title = "مؤسسة بنت الريف";
-  }, []);
-
   const images = [shreek1, shreek2, shreek4, shreek5, shreek7];
+  const [index, setIndex] = useState(0);
+
+  const next = () => {
+    setIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prev = () => {
+    setIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
 
   return (
     <>
-      {/* SEO */}
       <Helmet>
         <title>مؤسسة بنت الريف</title>
         <meta
@@ -32,86 +38,92 @@ const Shrca = () => {
         />
       </Helmet>
 
-      <Container   maxWidth="md"
+      <Container       maxWidth="md"
       sx={{
         my: 6,
-        px: "20px !important",}}>
-        {/* العنوان */}
+        px: "20px !important", // ✅ مسافة جانبية يمين ويسار 20px
+      }}
+    >
+
+
+
         <h2
           style={{
             color: "#000",
-            textAlign: "start",
             margin: "8px",
             paddingBottom: "4px",
             borderBottom: "3px solid #eeb60f",
             display: "inline-block",
+            textAlign:"start"
           }}
         >
           شركاؤنا
         </h2>
 
-        {/* الخلفية */}
         <Box
           sx={{
             backgroundColor: "#f9f6f2",
-            py: 5,
+            py: 4,
             px: 2,
-            overflow: "hidden",
-            direction: "rtl",
+            position: "relative",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          {/* شريط متحرك مثل الأخبار */}
-          <Box
+          {/* سهم يسار */}
+          <IconButton
+            onClick={prev}
             sx={{
-              overflow: "hidden",
-              width: "100%",
+              position: "absolute",
+              left: 8,
+              backgroundColor: "#fff",
+              boxShadow: 2,
             }}
           >
-            <Box
+            <ArrowBackIos />
+          </IconButton>
+
+          {/* الكرت */}
+          <Card
+            sx={{
+              width: 260,
+              height: 160,
+              borderRadius: 4,
+              boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+              backgroundColor: "#fff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <CardMedia
+              component="img"
+              image={images[index]}
+              alt={`partner-${index}`}
               sx={{
-                display: "flex",
-                width: "fit-content",
-                animation: "ticker 40s linear infinite",
-                "@keyframes ticker": {
-                  "0%": { transform: "translateX(100%)" },
-                  "100%": { transform: "translateX(-100%)" },
-                },
+                maxWidth: "80%",
+                maxHeight: "80%",
+                objectFit: "contain",
               }}
-            >
-              {[...images, ...images  ].map((img, idx) => (
-                <Card
-                  key={idx}
-                  sx={{
-                    mx: 2,
-                    minWidth: 220,
-                    height: 140,
-                    borderRadius: 4,
-                    boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
-                    backgroundColor: "#fff",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    flexShrink: 0,
-                  }}
-                >
-                  <CardMedia
-                    component="img"
-                    image={img}
-                    alt={`partner-${idx}`}
-                    sx={{
-                      maxWidth: "80%",
-                      maxHeight: "80%",
-                      objectFit: "contain",
-                      transition: "0.3s ease",
-                    }}
-                  />
-                </Card>
-              ))}
-            </Box>
-          </Box>
+            />
+          </Card>
+
+          {/* سهم يمين */}
+          <IconButton
+            onClick={next}
+            sx={{
+              position: "absolute",
+              right: 8,
+              backgroundColor: "#fff",
+              boxShadow: 2,
+            }}
+          >
+            <ArrowForwardIos />
+          </IconButton>
         </Box>
 
-        <Divider sx={{ mt: 4, borderColor: "#d9d4c9" }} />
+        <Divider sx={{ mt: 4 }} />
       </Container>
     </>
   );

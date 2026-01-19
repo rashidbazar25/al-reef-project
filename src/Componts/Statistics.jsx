@@ -12,12 +12,9 @@ const Statistics = () => {
     threshold: 0.3,
     triggerOnce: true,
   });
-
   const SPACE_ID = import.meta.env.VITE_CONTENTFUL_STATS_SPACE_ID;
   const ACCESS_TOKEN = import.meta.env.VITE_CONTENTFUL_STATS_ACCESS_TOKEN;
-  const ENVIRONMENT =
-    import.meta.env.VITE_CONTENTFUL_STATS_ENVIRONMENT || "master";
-
+  const ENVIRONMENT =import.meta.env.VITE_CONTENTFUL_STATS_ENVIRONMENT || "master";
   useEffect(() => {
     const fetchStats = async () => {
       try {
