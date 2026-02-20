@@ -1,10 +1,10 @@
 import React from "react";
 import Slider from "react-slick";
-import { Box, Typography, IconButton } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import logo from "../assets/logo.jpg";
-import imgbk from "../assets/imgbk.jpg"; // صورة الخلفية
+import imgbk from "../assets/imgbk.jpg";
 
 const values = [
   { text: "رسالة المؤسسة: دعم التعليم والمجتمع", logo: logo },
@@ -13,54 +13,20 @@ const values = [
   { text: "أهدافنا: تنمية المجتمع محليًا وإقليميًا", logo: logo },
 ];
 
-const NextArrow = ({ onClick }) => (
-  <IconButton
-    onClick={onClick}
-    sx={{
-      position: "absolute",
-      right: 20,
-      top: "50%",
-      transform: "translateY(-50%)",
-      zIndex: 2,
-      color: "#fff",
-      backgroundColor: "rgba(0,0,0,0.3)",
-      "&:hover": { backgroundColor: "rgba(0,0,0,0.5)" },
-    }}
-  >
-    &#10095;
-  </IconButton>
-);
-
-const PrevArrow = ({ onClick }) => (
-  <IconButton
-    onClick={onClick}
-    sx={{
-      position: "absolute",
-      left: 20,
-      top: "50%",
-      transform: "translateY(-50%)",
-      zIndex: 2,
-      color: "#fff",
-      backgroundColor: "rgba(0,0,0,0.3)",
-      "&:hover": { backgroundColor: "rgba(0,0,0,0.5)" },
-    }}
-  >
-    &#10094;
-  </IconButton>
-);
-
 const TextLogoCarousel = () => {
   const settings = {
-    dots: true,
-    infinite: true,
-    speed: 700,
+    dots: false,          // بدون نقاط
+    infinite: true,       // حركة مستمرة
+    speed: 1000,          // سرعة التنقل بين السلايدات
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 4000,
-    arrows: true,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
+    autoplay: true,       // تشغيل تلقائي
+    autoplaySpeed: 4000,  // وقت العرض لكل سلايد
+    arrows: true,        // بدون أسهم
+    rtl: true,            // من اليمين لليسار
+    pauseOnHover: false,  // لا تتوقف عند مرور الماوس
+    swipe: false,         // منع السحب
+    cssEase: "linear",    // حركة سلسة بدون توقف
   };
 
   return (
@@ -73,7 +39,7 @@ const TextLogoCarousel = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        backgroundImage: `linear-gradient(rgba(247, 243, 243, 0.5), rgba(149, 148, 148, 0.3)), url(${imgbk})`,
+        backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.2)), url(${imgbk})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -102,18 +68,18 @@ const TextLogoCarousel = () => {
                 height: { xs: 120, md: 180 },
                 objectFit: "cover",
                 borderRadius: "50%",
-                boxShadow: "0 4px 15px rgba(0,0,0,0.4)",
+                boxShadow: "0 4px 20px rgba(0,0,0,0.5)",
               }}
             />
             <Typography
               variant="h3"
               sx={{
                 fontWeight: 600,
-                fontSize: { xs: "1.4rem", sm: "2rem", md: "2.5rem" },
+                fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" },
                 color: "#fff",
                 textAlign: "center",
                 lineHeight: 1.4,
-                textShadow: "2px 2px 12px rgba(0,0,0,0.7)",
+                textShadow: "2px 2px 15px rgba(0,0,0,0.7)",
               }}
             >
               {item.text}
