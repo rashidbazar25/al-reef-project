@@ -157,7 +157,7 @@ const NewsHome = () => {
         variant="text"
         size="small"
         component={Link}
-        to={`/news/${item.sys.id}`}
+        to={`/news/${item.sys.id}?type=news`}
         sx={{
           fontSize:"16px",
           fontWeight: "bold",

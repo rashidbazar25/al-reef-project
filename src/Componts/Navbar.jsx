@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -12,51 +12,54 @@ import {
   ListItemText,
   Box,
   Container,
+  Menu,
+  MenuItem,
+  Collapse,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/logo.jpg";
 import { Helmet } from "react-helmet";
 
 const pages = [
   { label: "الرئيسية", path: "/" },
-  { label: "عن المؤسسة ", path: "/about" },
+  { label: "عن المؤسسة", path: "/about" },
   { label: "قطاعات عملنا", path: "/ourwork" },
-  { label: "آخر الأخـبار", path: "/news" },
-  { label: "معهد الوادي العربي", path: "/wadi" },
-  { label: "روضة أنوس", path: "/anous" },
+  { label: "آخر الأخبار", path: "/news" },
 ];
 
 export default function Navbar() {
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [openMobileCenter, setOpenMobileCenter] = useState(false);
 
-  useEffect(() => {
-    document.title = "  مؤسسة بنت الريف  ";
-    const meta =
-      document.querySelector("meta[name='description']") ||
-      document.createElement("meta");
-    meta.name = "description";
-    meta.content =
-      "مرحبًا بكم في موقعنا لتتعرف اكثر عن مؤسسة بنت الريف";
-    if (!document.head.contains(meta)) document.head.appendChild(meta);
-  }, []);
+  const location = useLocation();
 
+  const toggleDrawer = (value) => () => setOpenDrawer(value);
 
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-  const [open, setOpen] = useState(false);
-  const toggleDrawer = (value) => () => setOpen(value);
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
-  const location = useLocation(); // هنا نحصل على المسار الحالي
+  const isCenterActive =
+    location.pathname === "/anous" ||
+    location.pathname === "/wadi";
 
   return (
     <>
-      {/* SEO */}
-           <Helmet>
-            <title> مؤسسة بنت الريف</title>
-            <meta
-              name="description"
-              content="تعرف على رؤية ورسالة مؤسسة بنت الريف وبرامجها المختلفة."
-            />
-          </Helmet>
+      <Helmet>
+        <title>مؤسسة بنت الريف</title>
+        <meta
+          name="description"
+          content="تعرف على رؤية ورسالة مؤسسة بنت الريف وبرامجها المختلفة."
+        />
+      </Helmet>
+
       <AppBar
         position="sticky"
         sx={{
@@ -66,16 +69,12 @@ export default function Navbar() {
         }}
       >
         <Container maxWidth="lg">
-          <Toolbar
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
-            {/* روابط التنقل على اليمين */}
+          <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+
+            {/* روابط الديسكتوب */}
             <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
               {pages.map((page) => {
-                const isActive = location.pathname === page.path; // الرابط النشط
+                const isActive = location.pathname === page.path;
                 return (
                   <Button
                     key={page.path}
@@ -86,9 +85,10 @@ export default function Navbar() {
                       fontSize: 18,
                       fontWeight: 600,
                       fontFamily: "Almarai, sans-serif",
-                      transition: "0.3s",
-                      background: isActive ? "rgba(238,182,15,0.1)" : "transparent",
                       borderRadius: 2,
+                      background: isActive
+                        ? "rgba(238,182,15,0.1)"
+                        : "transparent",
                       "&:hover": {
                         color: "#eeb60f",
                         background: "rgba(238, 182, 15, 0.1)",
@@ -99,9 +99,55 @@ export default function Navbar() {
                   </Button>
                 );
               })}
+
+              {/* المركز الإعلامي */}
+              <Button
+                onClick={handleMenuOpen}
+                endIcon={<KeyboardArrowDownIcon />}
+                sx={{
+                  fontSize: 18,
+                  fontWeight: 600,
+                  fontFamily: "Almarai, sans-serif",
+                  color: isCenterActive ? "#eeb60f" : "#000",
+                  borderRadius: 2,
+                  background: isCenterActive
+                    ? "rgba(238,182,15,0.1)"
+                    : "transparent",
+                  "&:hover": {
+                    color: "#eeb60f",
+                    background: "rgba(238, 182, 15, 0.1)",
+                  },
+                }}
+              >
+                المركز الإعلامي
+              </Button>
+
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleMenuClose}
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                transformOrigin={{ vertical: "top", horizontal: "right" }}
+              >
+                <MenuItem
+                  component={Link}
+                  to="/anous"
+                  onClick={handleMenuClose}
+                >
+                  روضة أنوس
+                </MenuItem>
+
+                <MenuItem
+                  component={Link}
+                  to="/wadi"
+                  onClick={handleMenuClose}
+                >
+                  معهد الوادي العربي
+                </MenuItem>
+              </Menu>
             </Box>
 
-            {/* شعار + اسم المؤسسة */}
+            {/* الشعار */}
             <Box
               component={Link}
               to="/"
@@ -130,9 +176,12 @@ export default function Navbar() {
               </Typography>
             </Box>
 
-            {/* زر القائمة للجوال */}
+            {/* زر الجوال */}
             <Box sx={{ display: { xs: "flex", md: "none" } }}>
-              <IconButton sx={{ color: "#343a62" }} onClick={toggleDrawer(true)}>
+              <IconButton
+                sx={{ color: "#343a62" }}
+                onClick={toggleDrawer(true)}
+              >
                 <MenuIcon />
               </IconButton>
             </Box>
@@ -141,11 +190,16 @@ export default function Navbar() {
       </AppBar>
 
       {/* Drawer للجوال */}
-      <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
+      <Drawer
+        anchor="right"
+        open={openDrawer}
+        onClose={toggleDrawer(false)}
+      >
         <Box sx={{ width: 250, p: 2 }}>
           <Typography variant="h6" sx={{ mb: 2, fontWeight: "bold" }}>
             القائمة
           </Typography>
+
           <List>
             {pages.map((page) => {
               const isActive = location.pathname === page.path;
@@ -156,7 +210,9 @@ export default function Navbar() {
                     to={page.path}
                     onClick={toggleDrawer(false)}
                     sx={{
-                      background: isActive ? "rgba(238,182,15,0.1)" : "transparent",
+                      background: isActive
+                        ? "rgba(238,182,15,0.1)"
+                        : "transparent",
                     }}
                   >
                     <ListItemText
@@ -167,6 +223,48 @@ export default function Navbar() {
                 </ListItem>
               );
             })}
+
+            {/* المركز الإعلامي في الجوال */}
+            <ListItem disablePadding>
+              <ListItemButton
+                onClick={() =>
+                  setOpenMobileCenter(!openMobileCenter)
+                }
+              >
+                <ListItemText
+                  primary="المركز الإعلامي"
+                  sx={{
+                    color: isCenterActive ? "#eeb60f" : "#343a62",
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
+
+            <Collapse in={openMobileCenter}>
+              <List component="div" disablePadding>
+                <ListItem disablePadding>
+                  <ListItemButton
+                    component={Link}
+                    to="/anous"
+                    onClick={toggleDrawer(false)}
+                    sx={{ pl: 4 }}
+                  >
+                    <ListItemText primary="روضة أنوس" />
+                  </ListItemButton>
+                </ListItem>
+
+                <ListItem disablePadding>
+                  <ListItemButton
+                    component={Link}
+                    to="/wadi"
+                    onClick={toggleDrawer(false)}
+                    sx={{ pl: 4 }}
+                  >
+                    <ListItemText primary="معهد الوادي العربي" />
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            </Collapse>
           </List>
         </Box>
       </Drawer>

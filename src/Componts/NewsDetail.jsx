@@ -1,25 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { Box, Divider, Typography } from "@mui/material";
 import LoadingDots from "./LoadingDots";
-import { Helmet } from "react-helmet";
 
-const NewsDetail = () => {
-
-  useEffect(() => {
-    document.title = "  مؤسسة بنت الريف  ";
-    const meta =
-      document.querySelector("meta[name='description']") ||
-      document.createElement("meta");
-    meta.name = "description";
-    meta.content =
-      "مرحبًا بكم في موقعنا لتتعرف اكثر عن مؤسسة بنت الريف";
-    if (!document.head.contains(meta)) document.head.appendChild(meta);
-  }, []);
-  
+const NewsDetails = () => {
   const { id } = useParams();
-  const [news, setNews] = useState(null);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const type = searchParams.get("type"); // news / anous / wadi
+
+  const [item, setItem] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const SPACE_ID = import.meta.env.VITE_CONTENTFUL_SPACE_ID;
@@ -27,9 +17,31 @@ const NewsDetail = () => {
   const ENVIRONMENT = import.meta.env.VITE_CONTENTFUL_ENVIRONMENT;
 
   useEffect(() => {
-    const fetchNews = async () => {
+    const fetchItem = async () => {
       try {
         setLoading(true);
+
+        let collectionName = "";
+        if (type === "news") collectionName = "newsCollection";
+        else if (type === "anous") collectionName = "anousCollection";
+        else if (type === "wadi") collectionName = "wadiCollection";
+        else collectionName = null;
+
+        if (!collectionName) return;
+
+        const query = `
+        {
+          ${collectionName}(where:{sys:{id:"${id}"}}) {
+            items {
+              sys { id }
+              titel
+              paragraf { json }
+              date
+              imges { url title description }
+            }
+          }
+        }`;
+
         const response = await fetch(
           `https://graphql.contentful.com/content/v1/spaces/${SPACE_ID}/environments/${ENVIRONMENT}`,
           {
@@ -38,97 +50,39 @@ const NewsDetail = () => {
               "Content-Type": "application/json",
               Authorization: `Bearer ${ACCESS_TOKEN}`,
             },
-            body: JSON.stringify({
-              query: `
-                {
-                  newsCollection(where: { sys: { id: "${id}" } }, limit: 1) {
-                    items {
-                      sys { id }
-                      titel
-                      paragraf { json }
-                      date
-                      imges { url title description }
-                    }
-                  }
-                }
-              `,
-            }),
+            body: JSON.stringify({ query }),
           }
         );
 
         const data = await response.json();
-        setNews(data?.data?.newsCollection?.items[0] || null);
+        setItem(data?.data?.[collectionName]?.items[0] || null);
       } catch (err) {
-        console.error("Error fetching news:", err);
-        setNews(null);
+        console.error(err);
       } finally {
-        setTimeout(() => setLoading(false), 500);
+        setLoading(false);
       }
     };
 
-    fetchNews();
-  }, [id]);
+    fetchItem();
+  }, [id, type]);
 
   if (loading) return <LoadingDots />;
-
-  if (!news)
-    return (
-      <Typography sx={{ textAlign: "center", mt: 4 }}>
-        لا يوجد خبر لعرضه
-      </Typography>
-    );
+  if (!item) return <p>لم يتم العثور على تفاصيل الخبر.</p>;
 
   return (
-  <>
-   <Helmet>
-                <title> مؤسسة بنت الريف</title>
-                <meta
-                  name="description"
-                  content="تعرف على رؤية ورسالة مؤسسة بنت الريف وبرامجها المختلفة."
-                />
-              </Helmet>
-    <Box
-      sx={{
-        maxWidth: 800,
-        margin: "auto",
-        p: 2,
-        backgroundColor: "#f9f6f2",
-        borderRadius: 2,
-      }}
-    >
-      <Typography variant="h4" sx={{ fontWeight: "bold", mb: 1 }}>
-        {news.titel}
-      </Typography>
-
-      <Typography
-        variant="caption"
-        color="textSecondary"
-        sx={{ mb: 2, display: "block" }}
-      >
-        {new Date(news.date).toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "short",
-          day: "numeric",
-        })}
-      </Typography>
-
-      {news.imges?.url && (
-        <Box
-          component="img"
-          src={news.imges.url}
-          alt={news.imges.title || news.titel}
-          sx={{ width: "100%", mb: 2, borderRadius: 2 }}
+    <div style={{ maxWidth: "800px", margin: "auto", padding: "20px" }}>
+      <h1>{item.titel}</h1>
+      <p>{new Date(item.date).toLocaleDateString()}</p>
+      {item.imges?.url && (
+        <img
+          src={item.imges.url}
+          alt={item.imges.title || item.titel}
+          style={{ width: "100%", maxHeight: 400, objectFit: "cover" }}
         />
       )}
-
-<Box sx={{ mt: 2, "& p": { mb: 2, lineHeight: 1.8, fontSize: "1rem", color: "#333" } }}>
-  {documentToReactComponents(news.paragraf.json)}
-</Box>  
-<Divider sx={{ mt: 4, borderColor: "#d9d4c9" }} />
-
-  </Box>
-  </>
+      <div>{documentToReactComponents(item.paragraf.json)}</div>
+    </div>
   );
 };
 
-export default NewsDetail;
+export default NewsDetails;
