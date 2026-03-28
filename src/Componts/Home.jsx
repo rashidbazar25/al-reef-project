@@ -31,7 +31,7 @@ export default function Home() {
           content="تعرف على رؤية ورسالة مؤسسة بنت الريف وبرامجها المختلفة."
         />
       </Helmet>
-       <TextLogoCarousel/>
+       
         <Container>
           <Section/>
          

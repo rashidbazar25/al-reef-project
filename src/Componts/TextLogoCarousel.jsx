@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import { Box, Typography } from "@mui/material";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import logo from "../assets/logo.jpg";
+import logo from "../assets/logo.png";
 import imgbk from "../assets/imgbk.jpg";
 
 const values = [
