@@ -8,7 +8,7 @@ import Anous from "./Componts/Anous";
 import OurWorks from "./Componts/OurWorks";
 import News from "./Componts/News";
 import NewsDetail from "./Componts/NewsDetail";
-
+import Qta from "./Componts/Qta"; // ✅ مهم
 
 export const router = createBrowserRouter([
   {
@@ -16,15 +16,29 @@ export const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { index: true, element: <Home /> },
-      { path: "about" , element: <About /> },
-      { path: "programs" , element: <Programs/> },
-      { path: "news" , element: <News /> },
-      { path: "wadi" , element: <Wadi /> },
-      { path: "anous" , element: <Anous /> },
-      { path: "ourwork" , element: <OurWorks /> },
-      { path: "/news/:id" , element: <NewsDetail /> },
+      { path: "about", element: <About /> },
+      { path: "programs", element: <Programs /> },
+      { path: "news", element: <News /> },
+       { path: "media/news", element: <News /> },
+      { path: "wadi", element: <Wadi /> },
+      { path: "anous", element: <Anous /> },
+      { path: "ourwork", element: <OurWorks /> },
+      { path: "news/:id", element: <NewsDetail /> },
+
+      // ✅ هذا أهم سطر
+      { path: "qta/:section", element: <Qta /> },
+
+
+
+
+
+
+
+
       
-     
     ],
   },
 ]);
+
+
+
