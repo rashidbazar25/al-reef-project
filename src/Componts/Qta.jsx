@@ -1,199 +1,121 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { Box, Grid, Typography, Container, Divider } from "@mui/material";
-import { Gavel, ShieldCheck, Handshake } from "lucide-react";
+import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
 
+import eduImg from "../assets/ed1.png";
+
 const Qta = () => {
-  const { section } = useParams();
-
-  const data = {
-    care: {
-      title: "قطاع الرعاية المجتمعية",
-      desc: "يركز هذا القطاع على توفير الرعاية الشاملة للمجتمع المحلي، مع التركيز على الفئات الأكثر احتياجاً.",
-      points: [
-        "برامج الدعم الغذائي",
-        "الرعاية الصحية الأولية",
-        "دعم الأسر المتعففة",
-        "برامج كفالة الأيتام",
-      ],
-      icon: <Handshake size={32} color="#000" />,
-    },
-    empowerment: {
-      title: "قطاع الحماية والتمكين",
-      desc: "يهدف إلى حماية المرأة والطفل وتمكينهما من خلال برامج التدريب والتأهيل المهني.",
-      points: [
-        "برامج التدريب المهني",
-        "المشاريع الصغيرة والمتوسطة",
-        "برامج محو الأمية",
-        "التوعية الصحية والاجتماعية",
-      ],
-      icon: <ShieldCheck size={32} color="#000" />,
-    },
-    rights: {
-      title: "قطاع الحقوق",
-      desc: "يعمل على نشر الوعي الحقوقي وحماية حقوق المرأة والطفل في المجتمع.",
-      points: [
-        "التوعية الحقوقية",
-        "الاستشارات القانونية",
-        "حملات المناصرة",
-        "التدريب على الحقوق",
-      ],
-      icon: <Gavel size={32} color="#000" />,
-    },
-    institute: {
-      title: "المعهد العربي",
-      desc: "يقدم برامج تدريبية وتأهيلية متقدمة.",
-      points: [
-        "الدورات التدريبية المتخصصة",
-        "ورش العمل العملية",
-        "التأهيل المهني للشباب",
-        "التعليم المستمر والتطوير",
-      ],
-      icon: <Handshake size={32} color="#000" />,
-    },
-  };
-
-  const current = data[section];
-
   useEffect(() => {
-    if (current) {
-      document.title = current.title;
-    } else {
-      document.title = "مؤسسة بنت الريف";
-    }
-  }, [current]);
-
-  if (!current) {
-    return (
-      <Container sx={{ py: 10, textAlign: "center" }}>
-        <Typography variant="h4">القسم غير موجود</Typography>
-      </Container>
-    );
-  }
+    document.title = "التعليم";
+  }, []);
 
   return (
     <>
       <Helmet>
-        <title>{current.title}</title>
-        <meta name="description" content={current.desc} />
+        <title>التعليم</title>
+        <meta name="description" content="قطاع التعليم" />
       </Helmet>
 
-      <Container maxWidth="md" sx={{ my: 6 }}>
+      {/* Hero Section */}
+      <Box
+        sx={{
+          height: { xs: "50vh", md: "60vh" },
+
+          // ✅ خلفية بدون صورة (احترافية)
+          background: `
+            linear-gradient(135deg, #0f172a, #1e293b),
+            linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)
+          `,
+          backgroundSize: "cover, 40px 40px, 40px 40px",
+          backgroundPosition: "center",
+
+          position: "relative",
+          marginTop: "-16px",
+        }}
+      >
         <Typography
-          variant="h4"
+          variant="h3"
           sx={{
-            textAlign: "start",
-            color: "#000",
-            marginBottom: "50px",
+            position: "absolute",
+            bottom: "30%",
+            left: "50%",
+            transform: "translateX(-50%)",
+            color: "#fff",
             fontWeight: "bold",
-            paddingBottom: "4px",
-            borderBottom: "3px solid #eeb60f",
-            display: "inline-block",
+            zIndex: 2,
+            textAlign: "center",
+            px: 2,
           }}
         >
-          {current.title}
+          مؤسسة بنت الريف
         </Typography>
+      </Box>
 
-        <Box sx={{ p: { xs: 2, md: 4 }, backgroundColor: "#f9f6f2" }}>
-          <Grid container spacing={2} justifyContent="center">
-            <Grid
-              item
-              xs={12}
-              sm={8}
-              md={6}
-              sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      {/* Card */}
+      <Container
+        sx={{
+          position: "relative",
+          mt: { xs: "-80px", md: "-120px" },
+          zIndex: 5,
+        }}
+      >
+        <Box
+          component={motion.div}
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            backgroundColor: "#fff",
+            borderRadius: 3,
+            overflow: "hidden",
+            boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
+            minHeight: 300,
+          }}
+        >
+          {/* النصوص */}
+          <Box
+            sx={{
+              flex: 1,
+              maxHeight: 300,
+              overflowY: "auto",
+              p: { xs: 3, md: 5 },
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "flex-start",
+              textAlign: "right",
+            }}
+          >
+            <Typography variant="h4" sx={{ fontWeight: "bold", mb: 3 }}>
+              التعليم
+            </Typography>
+            <Typography
+              sx={{ color: "#555", lineHeight: 2, fontSize: "1.05rem" }}
             >
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-              >
-                <Box
-                  sx={{
-                    width: 300,
-                    minHeight: 380,
-                    borderRadius: 3,
-                    boxShadow: "0px 6px 18px rgba(0,0,0,0.08)",
-                    overflow: "hidden",
-                    display: "flex",
-                    flexDirection: "column",
-                    cursor: "default",
-                    "&:hover": {
-                      transform: "scale(1.03)",
-                      boxShadow: "0px 10px 25px rgba(0,0,0,0.15)",
-                      transition: "all 0.3s ease",
-                    },
-                  }}
-                >
-                  {/* رأس الكارد */}
-                  <Box sx={{ backgroundColor: "#eeb60f", color: "#000", p: 2 }}>
-                    <Box
-                      sx={{
-                        width: 50,
-                        height: 50,
-                        borderRadius: "50%",
-                        backgroundColor: "#fff",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        mx: "auto",
-                        mb: 1,
-                      }}
-                    >
-                      {current.icon}
-                    </Box>
-                    <Typography
-                      variant="h6"
-                      sx={{ fontWeight: "bold", textAlign: "center", fontSize: "1rem" }}
-                    >
-                      {current.title}
-                    </Typography>
-                  </Box>
+              نعمل في قطاع التعليم على تحسين فرص الوصول إلى التعليم الجيد،
+              ودعم الطلاب والمعلمين، والمساهمة في بناء جيل واعٍ ومتعلم.
+            </Typography>
+          </Box>
 
-                  {/* محتوى الكارد */}
-                  <Box
-                    sx={{
-                      flexGrow: 1,
-                      backgroundColor: "#f9f6f2",
-                      p: 2,
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "flex-start",
-                    }}
-                  >
-                    <Typography
-                      variant="body2"
-                      sx={{ textAlign: "right", mt: 2, fontSize: "0.85rem", fontWeight: 600, color: "#555", mb: 2 }}
-                    >
-                      {current.desc}
-                    </Typography>
-
-                    {current.points.map((point, idx) => (
-                      <Typography
-                        key={idx}
-                        variant="body2"
-                        sx={{
-                          color: "#555",
-                          fontSize: "1rem",
-                          mb: 2,
-                          display: "flex",
-                          alignItems: "flex-start",
-                          gap: 2,
-                        }}
-                      >
-                        • {point}
-                      </Typography>
-                    ))}
-                  </Box>
-                </Box>
-              </motion.div>
-            </Grid>
-          </Grid>
+          {/* الصورة */}
+          <Box
+            component="img"
+            src={eduImg}
+            alt="Education"
+            sx={{
+              flex: "0 0 250px",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+              borderRadius: { xs: 0, md: "0 8px 8px 0" },
+              ml: { md: 3 },
+              mt: { xs: 3, md: 0 },
+            }}
+          />
         </Box>
-
-        <Divider sx={{ mt: 4, borderColor: "#d9d4c9" }} />
       </Container>
     </>
   );
