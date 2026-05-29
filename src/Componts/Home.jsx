@@ -7,6 +7,7 @@ import NewsHome from "./NewsHome";
 import Section from "./Section";
 import { Helmet } from "react-helmet";
 import TextLogoCarousel from "./TextLogoCarousel";
+import HeroCarousel from "./HeroCarousel";
 
 export default function Home() {
   useEffect(() => {
@@ -31,9 +32,10 @@ export default function Home() {
           content="تعرف على رؤية ورسالة مؤسسة بنت الريف وبرامجها المختلفة."
         />
       </Helmet>
-       
+       <HeroCarousel/>
         <Container>
-          <Section/>
+          
+        {/* <Section/>  */} 
          
             <About/>
             <OurWorks/>

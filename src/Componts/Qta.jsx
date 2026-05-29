@@ -1,28 +1,36 @@
 import React, { useEffect } from "react";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography, Grid, Paper } from "@mui/material";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
 
-import eduImg from "../assets/ed1.png";
-
-const Qta = () => {
+const Qta = ({ sector }) => {
   useEffect(() => {
-    document.title = "التعليم";
-  }, []);
+    if (sector?.title) {
+      document.title = sector.title;
+    }
+  }, [sector]);
+
+  if (!sector) {
+    return (
+      <Container sx={{ mt: 10, textAlign: "center" }}>
+        <Typography variant="h5">القطاع غير موجود</Typography>
+      </Container>
+    );
+  }
+
+  const Icon = sector.icon;
 
   return (
     <>
       <Helmet>
-        <title>التعليم</title>
-        <meta name="description" content="قطاع التعليم" />
+        <title>{sector.title}</title>
+        <meta name="description" content={sector.description} />
       </Helmet>
 
-      {/* Hero Section */}
+      {/* Hero */}
       <Box
         sx={{
-          height: { xs: "50vh", md: "60vh" },
-
-          // ✅ خلفية بدون صورة (احترافية)
+          height: { xs: "45vh", md: "60vh" },
           background: `
             linear-gradient(135deg, #0f172a, #1e293b),
             linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
@@ -30,92 +38,102 @@ const Qta = () => {
           `,
           backgroundSize: "cover, 40px 40px, 40px 40px",
           backgroundPosition: "center",
-
-          position: "relative",
-          marginTop: "-16px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          textAlign: "center",
+          px: 2,
         }}
       >
         <Typography
           variant="h3"
           sx={{
-            position: "absolute",
-            bottom: "30%",
-            left: "50%",
-            transform: "translateX(-50%)",
             color: "#fff",
             fontWeight: "bold",
-            zIndex: 2,
-            textAlign: "center",
-            px: 2,
+            fontSize: { xs: "1.8rem", md: "2.8rem" },
           }}
         >
           مؤسسة بنت الريف
         </Typography>
       </Box>
 
-      {/* Card */}
-      <Container
-        sx={{
-          position: "relative",
-          mt: { xs: "-80px", md: "-120px" },
-          zIndex: 5,
-        }}
-      >
-        <Box
+      {/* Content */}
+      <Container sx={{ mt: { xs: "-40px", md: "-90px" } }}>
+        <Paper
           component={motion.div}
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
+          elevation={6}
           sx={{
-            display: "flex",
-            flexDirection: { xs: "column", md: "row" },
-            backgroundColor: "#fff",
             borderRadius: 3,
             overflow: "hidden",
-            boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
-            minHeight: 300,
           }}
         >
-          {/* النصوص */}
-          <Box
-            sx={{
-              flex: 1,
-              maxHeight: 300,
-              overflowY: "auto",
-              p: { xs: 3, md: 5 },
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-start",
-              textAlign: "right",
-            }}
-          >
-            <Typography variant="h4" sx={{ fontWeight: "bold", mb: 3 }}>
-              التعليم
-            </Typography>
-            <Typography
-              sx={{ color: "#555", lineHeight: 2, fontSize: "1.05rem" }}
-            >
-              نعمل في قطاع التعليم على تحسين فرص الوصول إلى التعليم الجيد،
-              ودعم الطلاب والمعلمين، والمساهمة في بناء جيل واعٍ ومتعلم.
-            </Typography>
-          </Box>
+          <Grid container>
 
-          {/* الصورة */}
-          <Box
-            component="img"
-            src={eduImg}
-            alt="Education"
-            sx={{
-              flex: "0 0 250px",
-              height: "100%",
-              objectFit: "cover",
-              display: "block",
-              borderRadius: { xs: 0, md: "0 8px 8px 0" },
-              ml: { md: 3 },
-              mt: { xs: 3, md: 0 },
-            }}
-          />
-        </Box>
+            {/* النص */}
+            <Grid item xs={12} md={7}>
+              <Box sx={{ p: { xs: 3, md: 5 }, textAlign: "right" }}>
+
+                {/* أيقونة */}
+                {Icon && (
+                  <Box sx={{ mb: 2, color: "#eeb60f" }}>
+                    <Icon size={34} />
+                  </Box>
+                )}
+
+                <Typography
+                  variant="h4"
+                  sx={{ fontWeight: "bold", mb: 2 }}
+                >
+                  {sector.title}
+                </Typography>
+
+                <Typography
+                  sx={{
+                    color: "#666",
+                    lineHeight: 2,
+                    mb: 3,
+                  }}
+                >
+                  {sector.description}
+                </Typography>
+
+                <Box>
+                  {sector.points?.map((item, i) => (
+                    <Typography
+                      key={i}
+                      sx={{
+                        mb: 1,
+                        color: "#444",
+                        fontSize: "0.95rem",
+                      }}
+                    >
+                      • {item}
+                    </Typography>
+                  ))}
+                </Box>
+              </Box>
+            </Grid>
+
+            {/* الصورة */}
+            <Grid item xs={12} md={5}>
+              <Box
+                component="img"
+                src={sector.image}
+                alt={sector.title}
+                sx={{
+                  width: "100%",
+                  height: { xs: 220, md: "100%" },
+                  objectFit: "cover",
+                  display: "block",
+                }}
+              />
+            </Grid>
+
+          </Grid>
+        </Paper>
       </Container>
     </>
   );

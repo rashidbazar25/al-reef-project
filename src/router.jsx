@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+
 import Home from "./Componts/Home";
 import Layout from "./Componts/Layout";
 import About from "./Componts/About";
@@ -8,8 +9,8 @@ import Anous from "./Componts/Anous";
 import OurWorks from "./Componts/OurWorks";
 import News from "./Componts/News";
 import NewsDetail from "./Componts/NewsDetail";
-import Qta from "./Componts/Qta"; // ✅ مهم
 
+import QtaPage from "./Componts/QtaPage";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -19,26 +20,13 @@ export const router = createBrowserRouter([
       { path: "about", element: <About /> },
       { path: "programs", element: <Programs /> },
       { path: "news", element: <News /> },
-       { path: "media/news", element: <News /> },
+      { path: "media/news", element: <News /> },
       { path: "wadi", element: <Wadi /> },
       { path: "anous", element: <Anous /> },
       { path: "ourwork", element: <OurWorks /> },
       { path: "news/:id", element: <NewsDetail /> },
 
-      // ✅ هذا أهم سطر
-      { path: "qta/:section", element: <Qta /> },
-
-
-
-
-
-
-
-
-      
-    ],
+      // ✅ القطاعات
+{ path: "qta/:section", element: <QtaPage /> }    ],
   },
 ]);
-
-
-

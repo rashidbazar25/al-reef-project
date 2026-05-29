@@ -33,8 +33,10 @@ export default function Layout() {
       </Helmet>
         <Navbar />
         <NewsBar navbarHeight={64} />
+        
         <Box sx={{ padding: 2, minHeight: "80vh" }}>
         <Outlet />
+      
       </Box>
       <Shrca/>
       <Bank/>
