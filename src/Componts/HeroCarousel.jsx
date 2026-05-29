@@ -13,6 +13,8 @@ import {
 } from "@mui/icons-material";
 
 import img1 from "../assets/cres1.png";
+import img2 from "../assets/cres2.png";
+import img3 from "../assets/cres3.png";
 
 const slides = [
   {
@@ -29,7 +31,7 @@ const slides = [
     subtitle:
       "واجهات جذابة وسريعة باستخدام React و أحدث التقنيات الحديثة.",
     image:
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop",
+      img2,
   },
   {
     id: 3,
@@ -37,7 +39,7 @@ const slides = [
     subtitle:
       "تصميم احترافي مع حركات سلسة وأداء قوي يعطي انطباع فاخر للمستخدم.",
     image:
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop",
+      img3,
   },
 ];
 
