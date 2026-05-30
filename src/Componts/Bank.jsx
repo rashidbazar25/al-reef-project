@@ -28,7 +28,7 @@ const Bank = () => {
 
 
   const banksData = [
-    { name: "بنك الكريمي", account: "123456789" },
+    { name: "مصرف اليمن البحرين الشامل", account: "1700355" },
     { name: "بنك بن دول", account: "98765432111" },
     { name: "بنك البسيري", account: "456123789" },
   ];
