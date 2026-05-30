@@ -3,7 +3,6 @@ import {
   AppBar,
   Toolbar,
   IconButton,
-  Typography,
   Button,
   Drawer,
   List,
@@ -15,15 +14,18 @@ import {
   Menu,
   MenuItem,
   Collapse,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Typography,
 } from "@mui/material";
+
 import MenuIcon from "@mui/icons-material/Menu";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { Helmet } from "react-helmet";
-
-// صفحات عادية
-const pages = [{ label: "الرئيسية", path: "/" }];
 
 // عن المؤسسة
 const aboutMenu = [
@@ -32,7 +34,7 @@ const aboutMenu = [
   { label: "الأهداف", path: "/about/goals" },
 ];
 
-// ✅ قطاعات العمل (مهم)
+// قطاعات العمل
 const workMenu = [
   { label: "قطاع الرعاية المجتمعية", path: "care" },
   { label: "قطاع الحماية والتمكين", path: "empowerment" },
@@ -42,14 +44,11 @@ const workMenu = [
 
 // المركز الإعلامي
 const mediaCenter = [
-  { label: "أخبار المؤسسة", path: "/media/news" },      // 🔹 يفتح News
+  { label: "أخبار المؤسسة", path: "/media/news" },
   { label: "التقرير السنوي", path: "/media/reports" },
   { label: "معرض الصور", path: "/media/gallery" },
   { label: "معرض الفيديو", path: "/media/videos" },
 ];
-
-// روابط إضافية
-const extraLinks = [{ label: "تواصل معنا", path: "/contact" }];
 
 export default function Navbar() {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -58,9 +57,11 @@ export default function Navbar() {
   const [anchorElWork, setAnchorElWork] = useState(null);
   const [anchorElMedia, setAnchorElMedia] = useState(null);
 
-  const [openMobileAbout, setOpenMobileAbout] = useState(false);
   const [openMobileWork, setOpenMobileWork] = useState(false);
-  const [openMobileMedia, setOpenMobileMedia] = useState(false);
+
+  // Modals
+  const [openContactModal, setOpenContactModal] = useState(false);
+  const [openDonateModal, setOpenDonateModal] = useState(false);
 
   const location = useLocation();
 
@@ -75,7 +76,6 @@ export default function Navbar() {
   const handleMediaOpen = (e) => setAnchorElMedia(e.currentTarget);
   const handleMediaClose = () => setAnchorElMedia(null);
 
-  // ✅ التعديل هنا
   const isAboutActive = location.pathname.includes("/about");
   const isWorkActive = location.pathname.includes("/qta");
   const isMediaActive = location.pathname.includes("/media");
@@ -136,7 +136,7 @@ export default function Navbar() {
                 ))}
               </Menu>
 
-              {/* ✅ قطاعات العمل */}
+              {/* قطاعات العمل */}
               <Button onClick={handleWorkOpen} endIcon={<KeyboardArrowDownIcon />} sx={navStyle(isWorkActive)}>
                 قطاعات العمل
               </Button>
@@ -145,7 +145,7 @@ export default function Navbar() {
                   <MenuItem
                     key={item.path}
                     component={Link}
-                    to={`/qta/${item.path}`}   // ✅ هنا التعديل
+                    to={`/qta/${item.path}`}
                     onClick={handleWorkClose}
                   >
                     {item.label}
@@ -154,27 +154,29 @@ export default function Navbar() {
               </Menu>
 
               {/* المركز الإعلامي */}
-<Button onClick={handleMediaOpen} endIcon={<KeyboardArrowDownIcon />} sx={navStyle(isMediaActive)}>
-  المركز الإعلامي
-</Button>
-<Menu anchorEl={anchorElMedia} open={Boolean(anchorElMedia)} onClose={handleMediaClose}>
-  {mediaCenter.map((item) => (
-    <MenuItem
-      key={item.path}
-      component={Link}
-      to={item.path}   // هنا نستخدم path كما هو في array
-      onClick={handleMediaClose}
-    >
-      {item.label}
-    </MenuItem>
-  ))}
-</Menu>
+              <Button onClick={handleMediaOpen} endIcon={<KeyboardArrowDownIcon />} sx={navStyle(isMediaActive)}>
+                المركز الإعلامي
+              </Button>
+              <Menu anchorEl={anchorElMedia} open={Boolean(anchorElMedia)} onClose={handleMediaClose}>
+                {mediaCenter.map((item) => (
+                  <MenuItem
+                    key={item.path}
+                    component={Link}
+                    to={item.path}
+                    onClick={handleMediaClose}
+                  >
+                    {item.label}
+                  </MenuItem>
+                ))}
+              </Menu>
 
-              <Button component={Link} to="/contact" sx={navStyle(location.pathname === "/contact")}>
+              {/* تواصل معنا */}
+              <Button sx={navStyle(false)} onClick={() => setOpenContactModal(true)}>
                 تواصل معنا
               </Button>
 
-              <Button component={Link} to="/donate" sx={donateStyle()}>
+              {/* التبرع */}
+              <Button sx={donateStyle()} onClick={() => setOpenDonateModal(true)}>
                 التبرع
               </Button>
             </Box>
@@ -196,8 +198,6 @@ export default function Navbar() {
       <Drawer anchor="right" open={openDrawer} onClose={toggleDrawer(false)}>
         <Box sx={{ width: 250 }}>
           <List>
-
-            {/* قطاعات العمل موبايل */}
             <ListItem>
               <ListItemButton onClick={() => setOpenMobileWork(!openMobileWork)}>
                 <ListItemText primary="قطاعات العمل" />
@@ -210,7 +210,7 @@ export default function Navbar() {
                   <ListItem key={item.path}>
                     <ListItemButton
                       component={Link}
-                      to={`/qta/${item.path}`}   // ✅ هنا التعديل
+                      to={`/qta/${item.path}`}
                       onClick={toggleDrawer(false)}
                     >
                       <ListItemText primary={item.label} />
@@ -219,10 +219,82 @@ export default function Navbar() {
                 ))}
               </List>
             </Collapse>
-
           </List>
         </Box>
       </Drawer>
+
+      {/* 🔥 Contact Modal */}
+      <Dialog
+        open={openContactModal}
+        onClose={() => setOpenContactModal(false)}
+        fullWidth
+        maxWidth="sm"
+      >
+        <DialogTitle sx={{ textAlign: "center", fontWeight: "bold" }}>
+          تواصل معنا
+        </DialogTitle>
+
+        <DialogContent>
+          <Box sx={{ textAlign: "center", display: "flex", flexDirection: "column", gap: 2 }}>
+            <Typography>📍 حضرموت ـ القطن ـ خلف جامع القطن</Typography>
+            <Typography sx={{ fontWeight: "bold", color: "#f0b429" }}>
+              📞 05/456845 - 770444670 - 777127708
+            </Typography>
+            <Typography>✉️ info@bentreef.org</Typography>
+          </Box>
+        </DialogContent>
+
+        <DialogActions sx={{ justifyContent: "center" }}>
+          <Button onClick={() => setOpenContactModal(false)} variant="contained">
+            إغلاق
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* 🔥 Donate Modal */}
+      <Dialog
+        open={openDonateModal}
+        onClose={() => setOpenDonateModal(false)}
+        fullWidth
+        maxWidth="sm"
+      >
+        <DialogTitle sx={{ textAlign: "center", fontWeight: "bold" }}>
+          التبرع
+        </DialogTitle>
+
+        <DialogContent>
+          <Box sx={{ textAlign: "center", display: "flex", flexDirection: "column", gap: 3 }}>
+
+            <Box>
+              <Typography sx={{ fontWeight: "bold", color: "#f0b429" }}>
+                مصرف اليمن البحرين الشامل
+              </Typography>
+              <Typography>1700355</Typography>
+            </Box>
+
+            <Box>
+              <Typography sx={{ fontWeight: "bold", color: "#f0b429" }}>
+                بنك بن دول
+              </Typography>
+              <Typography>98765432111</Typography>
+            </Box>
+
+            <Box>
+              <Typography sx={{ fontWeight: "bold", color: "#f0b429" }}>
+                بنك البسيري
+              </Typography>
+              <Typography>456123789</Typography>
+            </Box>
+
+          </Box>
+        </DialogContent>
+
+        <DialogActions sx={{ justifyContent: "center" }}>
+          <Button onClick={() => setOpenDonateModal(false)} variant="contained">
+            إغلاق
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

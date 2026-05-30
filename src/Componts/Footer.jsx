@@ -28,6 +28,7 @@ const Footer = () => {
       </Helmet>
         {/* SEO */}
     <Box
+      id="footer"
       component="footer"
       dir="rtl"
       sx={{
