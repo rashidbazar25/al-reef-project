@@ -31,16 +31,22 @@ export default function Layout() {
           content="تعرف على رؤية ورسالة مؤسسة بنت الريف وبرامجها المختلفة."
         />
       </Helmet>
+
+
+
         <Navbar />
         <NewsBar navbarHeight={64} />
         
-        <Box sx={{ padding: 2, minHeight: "80vh" }}>
-        <Outlet />
+        <Box sx={{  minHeight: "80vh" }}>
+          <Outlet />
       
-      </Box>
+        </Box>
       <Shrca/>
       <Bank/>
       <Footer/>
+
+
+
     </>
   );
 }

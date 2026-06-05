@@ -12,32 +12,32 @@ import {
   ArrowForwardIos,
 } from "@mui/icons-material";
 
-import img1 from "../assets/cres1.png";
-import img2 from "../assets/cres2.png";
-import img3 from "../assets/cres3.png";
+import img1 from "../assets/cres11.jpg";
+import img2 from "../assets/cres22.jpg";
+import img3 from "../assets/cres33.jpg";
 
 const slides = [
   {
     id: 1,
-    title: "حلول رقمية احترافية",
+    title: "الحمــاية والتمكـين",
     subtitle:
-      "نقدم خدمات تقنية حديثة وتصاميم عصرية تناسب جميع الأجهزة باحترافية عالية.",
+      "نحمي الإنسان ونمكّنه من النجاح",
     image:
      img1,
   },
   {
     id: 2,
-    title: "تطوير مواقع وتطبيقات",
+    title: "الرعـاية المجتـمـعية",
     subtitle:
-      "واجهات جذابة وسريعة باستخدام React و أحدث التقنيات الحديثة.",
+      "نرعى الإنسان ونعزز تماسك المجتمع",
     image:
       img2,
   },
   {
     id: 3,
-    title: "تجربة مستخدم استثنائية",
+    title: "الحـــقوق",
     subtitle:
-      "تصميم احترافي مع حركات سلسة وأداء قوي يعطي انطباع فاخر للمستخدم.",
+      "تمكين المجتمع الريفي من الوصول إلى حقوقه الأساسية وفرص التنمية المستدامة، بما يعزز العدالة الاجتماعية",
     image:
       img3,
   },
@@ -59,7 +59,7 @@ export default function HeroCarousel() {
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
-    }, 6000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);

@@ -57,7 +57,9 @@ export default function Navbar() {
   const [anchorElWork, setAnchorElWork] = useState(null);
   const [anchorElMedia, setAnchorElMedia] = useState(null);
 
+  const [openMobileAbout, setOpenMobileAbout] = useState(false);
   const [openMobileWork, setOpenMobileWork] = useState(false);
+  const [openMobileMedia, setOpenMobileMedia] = useState(false);
 
   // Modals
   const [openContactModal, setOpenContactModal] = useState(false);
@@ -125,9 +127,16 @@ export default function Navbar() {
               </Button>
 
               {/* عن المؤسسة */}
-              <Button onClick={handleAboutOpen} endIcon={<KeyboardArrowDownIcon />} sx={navStyle(isAboutActive)}>
-                عن المؤسسة
-              </Button>
+              <Button
+  onClick={handleAboutOpen}
+  endIcon={<KeyboardArrowDownIcon />}
+  sx={{
+    ...navStyle(isAboutActive),
+    gap: 1,
+  }}
+>
+  عن المؤسسة
+</Button>
               <Menu anchorEl={anchorElAbout} open={Boolean(anchorElAbout)} onClose={handleAboutClose}>
                 {aboutMenu.map((item) => (
                   <MenuItem key={item.path} component={Link} to={item.path} onClick={handleAboutClose}>
@@ -137,7 +146,7 @@ export default function Navbar() {
               </Menu>
 
               {/* قطاعات العمل */}
-              <Button onClick={handleWorkOpen} endIcon={<KeyboardArrowDownIcon />} sx={navStyle(isWorkActive)}>
+              <Button onClick={handleWorkOpen} endIcon={<KeyboardArrowDownIcon />} sx={{...navStyle(isWorkActive),gap : 1 ,}}>
                 قطاعات العمل
               </Button>
               <Menu anchorEl={anchorElWork} open={Boolean(anchorElWork)} onClose={handleWorkClose}>
@@ -154,7 +163,7 @@ export default function Navbar() {
               </Menu>
 
               {/* المركز الإعلامي */}
-              <Button onClick={handleMediaOpen} endIcon={<KeyboardArrowDownIcon />} sx={navStyle(isMediaActive)}>
+              <Button onClick={handleMediaOpen} endIcon={<KeyboardArrowDownIcon />} sx={{...navStyle(isMediaActive),gap:1}}>
                 المركز الإعلامي
               </Button>
               <Menu anchorEl={anchorElMedia} open={Boolean(anchorElMedia)} onClose={handleMediaClose}>
@@ -195,33 +204,127 @@ export default function Navbar() {
       </AppBar>
 
       {/* Drawer */}
-      <Drawer anchor="right" open={openDrawer} onClose={toggleDrawer(false)}>
-        <Box sx={{ width: 250 }}>
-          <List>
-            <ListItem>
-              <ListItemButton onClick={() => setOpenMobileWork(!openMobileWork)}>
-                <ListItemText primary="قطاعات العمل" />
+     {/* Drawer */}
+<Drawer anchor="right" open={openDrawer} onClose={toggleDrawer(false)}>
+  <Box sx={{ width: 280 }}>
+
+    <List>
+
+      {/* الرئيسية */}
+      <ListItem disablePadding>
+        <ListItemButton
+          component={Link}
+          to="/"
+          onClick={toggleDrawer(false)}
+        >
+          <ListItemText primary="الرئيسية" />
+        </ListItemButton>
+      </ListItem>
+
+      {/* عن المؤسسة */}
+      <ListItem disablePadding>
+        <ListItemButton
+          onClick={() => setOpenMobileAbout(!openMobileAbout)}
+          
+        >
+          <ListItemText primary="عن المؤسسة" />
+        </ListItemButton>
+      </ListItem>
+
+      <Collapse in={openMobileAbout}>
+        <List disablePadding>
+          {aboutMenu.map((item) => (
+            <ListItem key={item.path} disablePadding sx={{ pr: 3 }}>
+              <ListItemButton
+                component={Link}
+                to={item.path}
+                onClick={toggleDrawer(false)}
+              >
+                <ListItemText primary={item.label} />
               </ListItemButton>
             </ListItem>
+          ))}
+        </List>
+      </Collapse>
 
-            <Collapse in={openMobileWork}>
-              <List>
-                {workMenu.map((item) => (
-                  <ListItem key={item.path}>
-                    <ListItemButton
-                      component={Link}
-                      to={`/qta/${item.path}`}
-                      onClick={toggleDrawer(false)}
-                    >
-                      <ListItemText primary={item.label} />
-                    </ListItemButton>
-                  </ListItem>
-                ))}
-              </List>
-            </Collapse>
-          </List>
-        </Box>
-      </Drawer>
+      {/* قطاعات العمل */}
+      <ListItem disablePadding>
+        <ListItemButton
+          onClick={() => setOpenMobileWork(!openMobileWork)}
+        >
+          <ListItemText primary="قطاعات العمل" />
+        </ListItemButton>
+      </ListItem>
+
+      <Collapse in={openMobileWork}>
+        <List disablePadding>
+          {workMenu.map((item) => (
+            <ListItem key={item.path} disablePadding sx={{ pr: 3 }}>
+              <ListItemButton
+                component={Link}
+                to={`/qta/${item.path}`}
+                onClick={toggleDrawer(false)}
+              >
+                <ListItemText primary={item.label} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Collapse>
+
+      {/* المركز الإعلامي */}
+      <ListItem disablePadding>
+        <ListItemButton
+          onClick={() => setOpenMobileMedia(!openMobileMedia)}
+        >
+          <ListItemText primary="المركز الإعلامي" />
+        </ListItemButton>
+      </ListItem>
+
+      <Collapse in={openMobileMedia}>
+        <List disablePadding>
+          {mediaCenter.map((item) => (
+            <ListItem key={item.path} disablePadding sx={{ pr: 3 }}>
+              <ListItemButton
+                component={Link}
+                to={item.path}
+                onClick={toggleDrawer(false)}
+              >
+                <ListItemText primary={item.label} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Collapse>
+
+      {/* تواصل معنا */}
+      <ListItem disablePadding>
+        <ListItemButton
+          onClick={() => {
+            setOpenContactModal(true);
+            setOpenDrawer(false);
+          }}
+        >
+          <ListItemText primary="تواصل معنا" />
+        </ListItemButton>
+      </ListItem>
+
+      {/* التبرع */}
+      <ListItem disablePadding>
+        <ListItemButton
+          onClick={() => {
+            setOpenDonateModal(true);
+            setOpenDrawer(false);
+          }}
+        >
+          <ListItemText primary="التبرع" />
+        </ListItemButton>
+      </ListItem>
+
+    </List>
+
+  </Box>
+</Drawer>
 
       {/* 🔥 Contact Modal */}
       <Dialog
