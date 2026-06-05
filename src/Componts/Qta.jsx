@@ -1,15 +1,9 @@
-import React, { useEffect } from "react";
-import { Box, Container, Typography, Grid, Paper } from "@mui/material";
+import React from "react";
+import { Box, Container, Typography, Paper, Chip } from "@mui/material";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
 
 const Qta = ({ sector }) => {
-  useEffect(() => {
-    if (sector?.title) {
-      document.title = sector.title;
-    }
-  }, [sector]);
-
   if (!sector) {
     return (
       <Container sx={{ mt: 10, textAlign: "center" }}>
@@ -27,112 +21,151 @@ const Qta = ({ sector }) => {
         <meta name="description" content={sector.description} />
       </Helmet>
 
-      {/* Hero */}
+      {/* HERO (بدون تغيير) */}
       <Box
         sx={{
-          height: { xs: "45vh", md: "60vh" },
-          background: `
-            linear-gradient(135deg, #0f172a, #1e293b),
-            linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)
-          `,
-          backgroundSize: "cover, 40px 40px, 40px 40px",
-          backgroundPosition: "center",
+          height: { xs: "55vh", md: "70vh" },
+          position: "relative",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           textAlign: "center",
           px: 2,
+          backgroundImage: `url(${sector.image})`,
+          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundColor: "#0b0b0b",
         }}
       >
-        <Typography
-          variant="h3"
+        <Box
           sx={{
-            color: "#fff",
-            fontWeight: "bold",
-            fontSize: { xs: "1.8rem", md: "2.8rem" },
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.10))",
           }}
-        >
-          مؤسسة بنت الريف
-        </Typography>
+        />
+
+        <Box sx={{ position: "relative", zIndex: 2, color: "#fff" }} />
       </Box>
 
-      {/* Content */}
-      <Container sx={{ mt: { xs: "-40px", md: "-90px" } }}>
+      {/* CONTENT CARD (احترافي) */}
+      <Container sx={{ mt: -6, position: "relative", zIndex: 3 }}>
         <Paper
           component={motion.div}
-          initial={{ opacity: 0, y: 60 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          elevation={6}
           sx={{
+            p: { xs: 3, md: 6 },
             borderRadius: 3,
-            overflow: "hidden",
+            background: "#ffffff",
+            border: "1px solid rgba(0,0,0,0.06)",
+            boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
           }}
         >
-          <Grid container>
-
-            {/* النص */}
-            <Grid item xs={12} md={7}>
-              <Box sx={{ p: { xs: 3, md: 5 }, textAlign: "right" }}>
-
-                {/* أيقونة */}
-                {Icon && (
-                  <Box sx={{ mb: 2, color: "#eeb60f" }}>
-                    <Icon size={34} />
-                  </Box>
-                )}
-
-                <Typography
-                  variant="h4"
-                  sx={{ fontWeight: "bold", mb: 2 }}
-                >
-                  {sector.title}
-                </Typography>
-
-                <Typography
-                  sx={{
-                    color: "#666",
-                    lineHeight: 2,
-                    mb: 3,
-                  }}
-                >
-                  {sector.description}
-                </Typography>
-
-                <Box>
-                  {sector.points?.map((item, i) => (
-                    <Typography
-                      key={i}
-                      sx={{
-                        mb: 1,
-                        color: "#444",
-                        fontSize: "0.95rem",
-                      }}
-                    >
-                      • {item}
-                    </Typography>
-                  ))}
-                </Box>
+          {/* HEADER */}
+          <Box sx={{ textAlign: "center", mb: 4 }}>
+            {Icon && (
+              <Box sx={{ color: "#eeb60f", mb: 1 }}>
+                <Icon size={42} />
               </Box>
-            </Grid>
+            )}
 
-            {/* الصورة */}
-            <Grid item xs={12} md={5}>
+            <Typography
+              sx={{
+                fontSize: { xs: "1.6rem", md: "2rem" },
+                fontWeight: 800,
+                color: "#111",
+              }}
+            >
+              {sector.title}
+            </Typography>
+
+            <Box
+              sx={{
+                width: 60,
+                height: 3,
+                background: "#eeb60f",
+                mx: "auto",
+                mt: 1.5,
+                borderRadius: 2,
+              }}
+            />
+
+            <Chip
+              label="قطاع المؤسسة"
+              sx={{
+                mt: 2,
+                backgroundColor: "rgba(238,182,15,0.12)",
+                color: "#8a6a00",
+                fontWeight: 600,
+              }}
+            />
+          </Box>
+
+          {/* DESCRIPTION */}
+          <Typography
+            sx={{
+              textAlign: "center",
+              color: "#444",
+              lineHeight: 2,
+              fontSize: "1rem",
+              maxWidth: 750,
+              mx: "auto",
+              mb: 5,
+            }}
+          >
+            {sector.description}
+          </Typography>
+
+          {/* POINTS */}
+          <Box
+            sx={{
+              maxWidth: 750,
+              mx: "auto",
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+            }}
+          >
+            {sector.points?.map((item, i) => (
               <Box
-                component="img"
-                src={sector.image}
-                alt={sector.title}
+                key={i}
                 sx={{
-                  width: "100%",
-                  height: { xs: 220, md: "100%" },
-                  objectFit: "cover",
-                  display: "block",
-                }}
-              />
-            </Grid>
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: 2,
+                  p: 2.2,
+                  borderRadius: 2,
+                  background: "#fafafa",
+                  border: "1px solid rgba(0,0,0,0.05)",
+                  transition: "0.25s",
 
-          </Grid>
+                  "&:hover": {
+                    background: "#f5f5f5",
+                    transform: "translateX(-3px)",
+                  },
+                }}
+              >
+                <Box
+                  sx={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: "50%",
+                    background: "#eeb60f",
+                    mt: 0.8,
+                    flexShrink: 0,
+                  }}
+                />
+
+                <Typography sx={{ color: "#333", lineHeight: 1.9 }}>
+                  {item}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
         </Paper>
       </Container>
     </>
