@@ -14,6 +14,8 @@ import QtaPage from "./Componts/QtaPage";
 import Reports from "./Componts/Reports";
 import Gallery from "./Componts/Gallery";
 import Videos from "./Componts/Videos"; // ✅ هذا الصحيح
+import Vision from "./Componts/Vision";
+import Goals from "./Componts/Goals";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +29,9 @@ export const router = createBrowserRouter([
 
       { path: "news", element: <News /> },
       { path: "news/:id", element: <NewsDetail /> },
+
+       { path: "vision", element: <Vision /> },
+       { path: "goals", element: <Goals /> },
 
       // media
       { path: "media/news", element: <News /> },

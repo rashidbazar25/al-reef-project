@@ -30,8 +30,7 @@ import { Helmet } from "react-helmet";
 // عن المؤسسة
 const aboutMenu = [
   { label: "نبذة عن المؤسسة", path: "/about" },
-  { label: "الرؤية والرسالة", path: "/about/vision" },
-  { label: "الأهداف", path: "/about/goals" },
+  { label: "الرؤية والرسالة والأهداف", path: "/goals" },
 ];
 
 // قطاعات العمل
