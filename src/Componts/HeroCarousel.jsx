@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
-  Button,
   IconButton,
   Container,
 } from "@mui/material";
-
 import {
   ArrowBackIosNew,
   ArrowForwardIos,
@@ -15,31 +13,27 @@ import {
 import img1 from "../assets/cres11.jpg";
 import img2 from "../assets/cres22.jpg";
 import img3 from "../assets/cres33.jpg";
+import logo from "../assets/logo.png";
 
 const slides = [
   {
     id: 1,
     title: "الحمــاية والتمكـين",
-    subtitle:
-      "نحمي الإنسان ونمكّنه من النجاح",
-    image:
-     img1,
+    subtitle: "نحمي الإنسان ونمكّنه من النجاح",
+    image: img1,
   },
   {
     id: 2,
     title: "الرعـاية المجتـمـعية",
-    subtitle:
-      "نرعى الإنسان ونعزز تماسك المجتمع",
-    image:
-      img2,
+    subtitle: "نرعى الإنسان ونعزز تماسك المجتمع",
+    image: img2,
   },
   {
     id: 3,
     title: "الحـــقوق",
     subtitle:
       "تمكين المجتمع الريفي من الوصول إلى حقوقه الأساسية وفرص التنمية المستدامة، بما يعزز العدالة الاجتماعية",
-    image:
-      img3,
+    image: img3,
   },
 ];
 
@@ -81,15 +75,12 @@ export default function HeroCarousel() {
             inset: 0,
             opacity: current === index ? 1 : 0,
             transform:
-              current === index
-                ? "scale(1)"
-                : "scale(1.08)",
-            transition:
-              "all 1.4s ease-in-out",
+              current === index ? "scale(1)" : "scale(1.08)",
+            transition: "all 1.4s ease-in-out",
             zIndex: current === index ? 1 : 0,
           }}
         >
-          {/* Background Image */}
+          {/* Background */}
           <Box
             component="img"
             src={slide.image}
@@ -120,65 +111,108 @@ export default function HeroCarousel() {
               display: "flex",
               alignItems: "center",
               zIndex: 2,
+              
             }}
           >
-            <Box
-              sx={{
-                maxWidth: "700px",
-                color: "#fff",
-                animation:
-                  current === index
-                    ? "fadeUp 1.2s ease"
-                    : "none",
+           <Box
+  sx={{
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 8,
+    flexDirection: {
+      xs: "column",
+      md: "row",
+    },
+  }}
+>
+  {/* Text */}
+  <Box
+  sx={{
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "flex-end",
+    textAlign: "right",
+    color: "#fff",
+  }}
+>
+  <Typography
+    variant="h2"
+    sx={{
+      fontWeight: 900,
+      fontSize: {
+        xs: "2.5rem",
+        md: "4.5rem",
+      },
+      lineHeight: 1.2,
+      mb: 1,
+      width: "100%",
+    }}
+  >
+    {slide.title}
+  </Typography>
 
-                "@keyframes fadeUp": {
-                  from: {
-                    opacity: 0,
-                    transform: "translateY(40px)",
-                  },
-                  to: {
-                    opacity: 1,
-                    transform: "translateY(0)",
-                  },
-                },
-              }}
-            >
-              <Typography
-                variant="h2"
-                sx={{
-                  fontWeight: 900,
-                  mb: 3,
-                  lineHeight: 1.2,
-                  fontSize: {
-                    xs: "2.2rem",
-                    md: "4.5rem",
-                  },
-                }}
-              >
-                {slide.title}
-              </Typography>
+  <Typography
+    sx={{
+      width: "100%",
+      fontSize: {
+        xs: "1.1rem",
+        md: "1.35rem",
+      },
+      lineHeight: 1.8,
+      color: "rgba(255,255,255,0.9)",
+    }}
+  >
+    {slide.subtitle}
+  </Typography>
+</Box>
 
-              <Typography
-                sx={{
-                  fontSize: {
-                    xs: "1rem",
-                    md: "1.3rem",
-                  },
-                  color: "rgba(255,255,255,0.85)",
-                  lineHeight: 2,
-                  mb: 4,
-                }}
-              >
-                {slide.subtitle}
-              </Typography>
+  {/* Logo */}
+  <Box
+    sx={{
+      flex: 1,
+      display: "flex",
+      justifyContent: "flex-start",
+      alignItems: "center",
+      animation: current === index ? "fadeUp 1.2s ease" : "none",
 
-             
-            </Box>
+      "@keyframes float": {
+        "0%": {
+          transform: "translateY(0px)",
+        },
+        "50%": {
+          transform: "translateY(-10px)",
+        },
+        "100%": {
+          transform: "translateY(0px)",
+        },
+      },
+    }}
+  >
+    <Box
+      component="img"
+      src={logo}
+      alt="شعار المؤسسة"
+      sx={{
+        width: {
+          xs: 180,
+          md: 350,
+        },
+        maxWidth: "100%",
+        filter: "drop-shadow(0 15px 35px rgba(0,0,0,.45))",
+        animation: "float 4s ease-in-out infinite",
+      }}
+    />
+  </Box>
+</Box>
           </Container>
         </Box>
       ))}
 
-      {/* Arrows */}
+      {/* Previous */}
       <IconButton
         onClick={prevSlide}
         sx={{
@@ -190,7 +224,6 @@ export default function HeroCarousel() {
           color: "#fff",
           background: "rgba(255,255,255,0.12)",
           backdropFilter: "blur(10px)",
-
           "&:hover": {
             background: "rgba(255,255,255,0.22)",
           },
@@ -199,6 +232,7 @@ export default function HeroCarousel() {
         <ArrowBackIosNew />
       </IconButton>
 
+      {/* Next */}
       <IconButton
         onClick={nextSlide}
         sx={{
@@ -210,7 +244,6 @@ export default function HeroCarousel() {
           color: "#fff",
           background: "rgba(255,255,255,0.12)",
           backdropFilter: "blur(10px)",
-
           "&:hover": {
             background: "rgba(255,255,255,0.22)",
           },
