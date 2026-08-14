@@ -29,8 +29,7 @@ const Bank = () => {
 
   const banksData = [
     { name: "مصرف اليمن البحرين الشامل", account: "1700355" },
-    { name: "بنك بن دول", account: "98765432111" },
-    { name: "بنك البسيري", account: "456123789" },
+    
   ];
 
   const [copiedIndex, setCopiedIndex] = useState(null);

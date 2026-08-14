@@ -24,7 +24,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Link, useLocation } from "react-router-dom";
-import logo from "../assets/logo.png";
+import logo from "../assets/logobg.png";
 import { Helmet } from "react-helmet";
 
 // عن المؤسسة
@@ -38,7 +38,7 @@ const workMenu = [
   { label: "قطاع الرعاية المجتمعية", path: "care" },
   { label: "قطاع الحماية والتمكين", path: "empowerment" },
   { label: "قطاع الحقوق", path: "rights" },
-  { label: "المعهد العربي", path: "institute" },
+  {/*{ label: "المعهد العربي", path: "institute" }, */}
 ];
 
 // المركز الإعلامي
@@ -342,7 +342,9 @@ export default function Navbar() {
             <Typography sx={{ fontWeight: "bold", color: "#f0b429" }}>
               📞 05/456845 - 770444670 - 777127708
             </Typography>
-            <Typography>✉️ info@bentreef.org</Typography>
+            <Typography>✉️ bintalriayf2019@gmail.com
+
+</Typography>
           </Box>
         </DialogContent>
 
@@ -372,20 +374,6 @@ export default function Navbar() {
                 مصرف اليمن البحرين الشامل
               </Typography>
               <Typography>1700355</Typography>
-            </Box>
-
-            <Box>
-              <Typography sx={{ fontWeight: "bold", color: "#f0b429" }}>
-                بنك بن دول
-              </Typography>
-              <Typography>98765432111</Typography>
-            </Box>
-
-            <Box>
-              <Typography sx={{ fontWeight: "bold", color: "#f0b429" }}>
-                بنك البسيري
-              </Typography>
-              <Typography>456123789</Typography>
             </Box>
 
           </Box>

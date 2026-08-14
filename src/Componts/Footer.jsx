@@ -110,11 +110,11 @@ const Footer = () => {
           >
             <Mail size={18} />
             <Link
-              href="mailto:info@bentreef.org"
+              href="mailto:bintalriayf2019@gmail.com"
               color="inherit"
               underline="hover"
             >
-              info@bentreef.org
+             bintalriayf2019@gmail.com
             </Link>
           </Typography>
         </Grid>
