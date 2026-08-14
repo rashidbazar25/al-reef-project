@@ -38,7 +38,7 @@ const workMenu = [
   { label: "قطاع الرعاية المجتمعية", path: "care" },
   { label: "قطاع الحماية والتمكين", path: "empowerment" },
   { label: "قطاع الحقوق", path: "rights" },
-  {/*{ label: "المعهد العربي", path: "institute" }, */}
+  { label: "المعهد العربي", path: "institute" }, 
 ];
 
 // المركز الإعلامي
@@ -153,7 +153,7 @@ export default function Navbar() {
                   <MenuItem
                     key={item.path}
                     component={Link}
-                    to={`/qta/${item.path}`}
+                    to={item.path === "institute" ? "/institute" : `/qta/${item.path}`}
                     onClick={handleWorkClose}
                   >
                     {item.label}
@@ -190,9 +190,43 @@ export default function Navbar() {
             </Box>
 
             {/* Logo */}
-            <Box component={Link} to="/" sx={{ display: "flex", textDecoration: "none" }}>
-              <Box component="img" src={logo} sx={{ height: 50 }} />
-            </Box>
+            <Box
+  component={Link}
+  to="/"
+  sx={{
+    display: "flex",
+    textDecoration: "none",
+    outline: "none",
+    border: "none",
+
+    "&:focus": {
+      outline: "none",
+      border: "none",
+    },
+
+    "&:focus-visible": {
+      outline: "none",
+      border: "none",
+    },
+
+    "& img": {
+      border: "none",
+      outline: "none",
+    },
+  }}
+>
+  <Box
+    component="img"
+    src={logo}
+    alt="مؤسسة بنت الريف"
+    sx={{
+      height: 50,
+      display: "block",
+      border: "none",
+      outline: "none",
+    }}
+  />
+</Box>
 
             {/* Mobile */}
             <IconButton sx={{ display: { md: "none" } }} onClick={toggleDrawer(true)}>

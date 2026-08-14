@@ -16,6 +16,9 @@ import Gallery from "./Componts/Gallery";
 import Videos from "./Componts/Videos"; // ✅ هذا الصحيح
 import Vision from "./Componts/Vision";
 import Goals from "./Componts/Goals";
+import WadiDetails from "./Componts/WadiDetails";
+
+
 
 export const router = createBrowserRouter([
   {
@@ -46,6 +49,9 @@ export const router = createBrowserRouter([
 
       // sectors
       { path: "qta/:section", element: <QtaPage /> },
+      { path: "institute", element: <Wadi /> },
+{ path: "wadi/:id", element: <WadiDetails /> },
+
     ],
   },
 ]);

@@ -13,11 +13,10 @@ import { Helmet } from "react-helmet";
 import shreek1 from "../assets/shreek1.png";
 import shreek2 from "../assets/shreek2.png";
 import shreek4 from "../assets/shreek4.jpg";
-import shreek5 from "../assets/shreek5.png";
 import shreek7 from "../assets/shreek7.jpg";
 
 const Shrca = () => {
-  const images = [shreek1, shreek2, shreek4, shreek5, shreek7];
+  const images = [shreek1, shreek2, shreek4, shreek7];
   const [index, setIndex] = useState(0);
 
   const next = () => {
