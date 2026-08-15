@@ -228,6 +228,10 @@ export default function Navbar() {
   />
 </Box>
 
+
+
+
+
             {/* Mobile */}
             <IconButton sx={{ display: { md: "none" } }} onClick={toggleDrawer(true)}>
               <MenuIcon />
@@ -236,189 +240,768 @@ export default function Navbar() {
         </Container>
       </AppBar>
 
-      {/* Drawer */}
-     {/* Drawer */}
-<Drawer anchor="right" open={openDrawer} onClose={toggleDrawer(false)}>
-  <Box sx={{ width: 280 }}>
+     
 
-    <List>
 
-      {/* الرئيسية */}
-      <ListItem disablePadding>
-        <ListItemButton
-          component={Link}
-          to="/"
-          onClick={toggleDrawer(false)}
+
+
+
+
+
+
+     {/* =========================
+    Mobile Drawer
+========================= */}
+<Drawer
+  anchor="right"
+  open={openDrawer}
+  onClose={toggleDrawer(false)}
+  PaperProps={{
+    sx: {
+      width: { xs: "85%", sm: 360 },
+      maxWidth: 360,
+      backgroundColor: "#fff",
+      direction: "rtl",
+      boxShadow: "-8px 0 30px rgba(0,0,0,0.12)",
+    },
+  }}
+>
+  <Box
+    sx={{
+      height: "100%",
+      display: "flex",
+      flexDirection: "column",
+      fontFamily: "Almarai",
+    }}
+  >
+
+    {/* =========================
+        Header
+    ========================= */}
+    <Box
+      sx={{
+        px: 2.5,
+        py: 2.2,
+        background: "linear-gradient(135deg, #343a62 0%, #454d7d 100%)",
+        color: "#fff",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+      }}
+    >
+      <Box
+        component="img"
+        src={logo}
+        alt="مؤسسة بنت الريف"
+        sx={{
+          height: 52,
+          width: "auto",
+          objectFit: "contain",
+          backgroundColor: "#fff",
+          borderRadius: 1.5,
+          p: 0.5,
+        }}
+      />
+
+      <IconButton
+        onClick={toggleDrawer(false)}
+        sx={{
+          color: "#fff",
+          "&:hover": {
+            backgroundColor: "rgba(255,255,255,0.12)",
+          },
+        }}
+      >
+        <span style={{ fontSize: "25px", lineHeight: 1 }}>×</span>
+      </IconButton>
+    </Box>
+
+    {/* =========================
+        Navigation
+    ========================= */}
+    <Box
+      sx={{
+        flex: 1,
+        overflowY: "auto",
+        py: 1.5,
+        "&::-webkit-scrollbar": {
+          width: "4px",
+        },
+        "&::-webkit-scrollbar-thumb": {
+          backgroundColor: "#ddd",
+          borderRadius: "10px",
+        },
+      }}
+    >
+      <List sx={{ px: 1.2 }}>
+
+        {/* =========================
+            الرئيسية
+        ========================= */}
+        <ListItem disablePadding sx={{ mb: 0.5 }}>
+          <ListItemButton
+            component={Link}
+            to="/"
+            onClick={toggleDrawer(false)}
+            sx={{
+              minHeight: 52,
+              borderRadius: 2,
+              px: 2,
+              direction: "rtl",
+              transition: "all .2s ease",
+
+              "&:hover": {
+                backgroundColor: "rgba(52,58,98,0.07)",
+                transform: "translateX(-3px)",
+              },
+
+              ...(location.pathname === "/" && {
+                backgroundColor: "rgba(240,180,41,0.12)",
+                color: "#343a62",
+              }),
+            }}
+          >
+            <ListItemText
+              primary="الرئيسية"
+              sx={{
+                textAlign: "right",
+                "& .MuiListItemText-primary": {
+                  fontFamily: "Almarai",
+                  fontSize: "16px",
+                  fontWeight: 700,
+                },
+              }}
+            />
+          </ListItemButton>
+        </ListItem>
+
+        {/* =========================
+            عن المؤسسة
+        ========================= */}
+        <ListItem disablePadding sx={{ mb: 0.5 }}>
+          <ListItemButton
+            onClick={() => setOpenMobileAbout(!openMobileAbout)}
+            sx={{
+              minHeight: 52,
+              borderRadius: 2,
+              px: 2,
+              direction: "rtl",
+
+              "&:hover": {
+                backgroundColor: "rgba(52,58,98,0.07)",
+              },
+            }}
+          >
+            <ListItemText
+              primary="عن المؤسسة"
+              sx={{
+                textAlign: "right",
+                "& .MuiListItemText-primary": {
+                  fontFamily: "Almarai",
+                  fontSize: "16px",
+                  fontWeight: 700,
+                  color: "#343a62",
+                },
+              }}
+            />
+
+            <Box
+              component="span"
+              sx={{
+                color: "#f0b429",
+                fontSize: 22,
+                fontWeight: 700,
+                transition: "transform .25s ease",
+                transform: openMobileAbout
+                  ? "rotate(180deg)"
+                  : "rotate(0deg)",
+              }}
+            >
+              ⌄
+            </Box>
+          </ListItemButton>
+        </ListItem>
+
+        {/* العناصر الفرعية - عن المؤسسة */}
+        <Collapse
+          in={openMobileAbout}
+          timeout="auto"
+          unmountOnExit
         >
-          <ListItemText primary="الرئيسية" />
-        </ListItemButton>
-      </ListItem>
-
-      {/* عن المؤسسة */}
-      <ListItem disablePadding>
-        <ListItemButton
-          onClick={() => setOpenMobileAbout(!openMobileAbout)}
-          
-        >
-          <ListItemText primary="عن المؤسسة" />
-        </ListItemButton>
-      </ListItem>
-
-      <Collapse in={openMobileAbout}>
-        <List disablePadding>
-          {aboutMenu.map((item) => (
-            <ListItem key={item.path} disablePadding sx={{ pr: 3 }}>
-              <ListItemButton
-                component={Link}
-                to={item.path}
-                onClick={toggleDrawer(false)}
+          <List
+            disablePadding
+            sx={{
+              mr: 1.5,
+              mb: 1,
+              borderRight: "3px solid #f0b429",
+            }}
+          >
+            {aboutMenu.map((item) => (
+              <ListItem
+                key={item.path}
+                disablePadding
               >
-                <ListItemText primary={item.label} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Collapse>
+                <ListItemButton
+                  component={Link}
+                  to={item.path}
+                  onClick={toggleDrawer(false)}
+                  sx={{
+                    minHeight: 44,
+                    px: 2,
+                    borderRadius: "0 8px 8px 0",
+                    direction: "rtl",
 
-      {/* قطاعات العمل */}
-      <ListItem disablePadding>
-        <ListItemButton
-          onClick={() => setOpenMobileWork(!openMobileWork)}
+                    "&:hover": {
+                      backgroundColor: "rgba(240,180,41,0.08)",
+                    },
+                  }}
+                >
+                  <Box
+                    component="span"
+                    sx={{
+                      width: 6,
+                      height: 6,
+                      borderRadius: "50%",
+                      backgroundColor: "#f0b429",
+                      ml: 1.5,
+                      flexShrink: 0,
+                    }}
+                  />
+
+                  <ListItemText
+                    primary={item.label}
+                    sx={{
+                      textAlign: "right",
+                      "& .MuiListItemText-primary": {
+                        fontFamily: "Almarai",
+                        fontSize: "14px",
+                        fontWeight: 500,
+                        color: "#555",
+                      },
+                    }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </Collapse>
+
+        {/* =========================
+            قطاعات العمل
+        ========================= */}
+        <ListItem disablePadding sx={{ mb: 0.5 }}>
+          <ListItemButton
+            onClick={() => setOpenMobileWork(!openMobileWork)}
+            sx={{
+              minHeight: 52,
+              borderRadius: 2,
+              px: 2,
+              direction: "rtl",
+
+              "&:hover": {
+                backgroundColor: "rgba(52,58,98,0.07)",
+              },
+            }}
+          >
+            <ListItemText
+              primary="قطاعات العمل"
+              sx={{
+                textAlign: "right",
+                "& .MuiListItemText-primary": {
+                  fontFamily: "Almarai",
+                  fontSize: "16px",
+                  fontWeight: 700,
+                  color: "#343a62",
+                },
+              }}
+            />
+
+            <Box
+              component="span"
+              sx={{
+                color: "#f0b429",
+                fontSize: 22,
+                fontWeight: 700,
+                transition: "transform .25s ease",
+                transform: openMobileWork
+                  ? "rotate(180deg)"
+                  : "rotate(0deg)",
+              }}
+            >
+              ⌄
+            </Box>
+          </ListItemButton>
+        </ListItem>
+
+        {/* العناصر الفرعية - قطاعات العمل */}
+        <Collapse
+          in={openMobileWork}
+          timeout="auto"
+          unmountOnExit
         >
-          <ListItemText primary="قطاعات العمل" />
-        </ListItemButton>
-      </ListItem>
-
-      <Collapse in={openMobileWork}>
-        <List disablePadding>
-          {workMenu.map((item) => (
-            <ListItem key={item.path} disablePadding sx={{ pr: 3 }}>
-              <ListItemButton
-                component={Link}
-                to={`/qta/${item.path}`}
-                onClick={toggleDrawer(false)}
+          <List
+            disablePadding
+            sx={{
+              mr: 1.5,
+              mb: 1,
+              borderRight: "3px solid #f0b429",
+            }}
+          >
+            {workMenu.map((item) => (
+              <ListItem
+                key={item.path}
+                disablePadding
               >
-                <ListItemText primary={item.label} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Collapse>
+                <ListItemButton
+                  component={Link}
+                  to={
+                    item.path === "institute"
+                      ? "/institute"
+                      : `/qta/${item.path}`
+                  }
+                  onClick={toggleDrawer(false)}
+                  sx={{
+                    minHeight: 44,
+                    px: 2,
+                    borderRadius: "0 8px 8px 0",
+                    direction: "rtl",
 
-      {/* المركز الإعلامي */}
-      <ListItem disablePadding>
-        <ListItemButton
-          onClick={() => setOpenMobileMedia(!openMobileMedia)}
+                    "&:hover": {
+                      backgroundColor: "rgba(240,180,41,0.08)",
+                    },
+                  }}
+                >
+                  <Box
+                    component="span"
+                    sx={{
+                      width: 6,
+                      height: 6,
+                      borderRadius: "50%",
+                      backgroundColor: "#f0b429",
+                      ml: 1.5,
+                      flexShrink: 0,
+                    }}
+                  />
+
+                  <ListItemText
+                    primary={item.label}
+                    sx={{
+                      textAlign: "right",
+                      "& .MuiListItemText-primary": {
+                        fontFamily: "Almarai",
+                        fontSize: "14px",
+                        fontWeight: 500,
+                        color: "#555",
+                      },
+                    }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </Collapse>
+
+        {/* =========================
+            المركز الإعلامي
+        ========================= */}
+        <ListItem disablePadding sx={{ mb: 0.5 }}>
+          <ListItemButton
+            onClick={() => setOpenMobileMedia(!openMobileMedia)}
+            sx={{
+              minHeight: 52,
+              borderRadius: 2,
+              px: 2,
+              direction: "rtl",
+
+              "&:hover": {
+                backgroundColor: "rgba(52,58,98,0.07)",
+              },
+            }}
+          >
+            <ListItemText
+              primary="المركز الإعلامي"
+              sx={{
+                textAlign: "right",
+                "& .MuiListItemText-primary": {
+                  fontFamily: "Almarai",
+                  fontSize: "16px",
+                  fontWeight: 700,
+                  color: "#343a62",
+                },
+              }}
+            />
+
+            <Box
+              component="span"
+              sx={{
+                color: "#f0b429",
+                fontSize: 22,
+                fontWeight: 700,
+                transition: "transform .25s ease",
+                transform: openMobileMedia
+                  ? "rotate(180deg)"
+                  : "rotate(0deg)",
+              }}
+            >
+              ⌄
+            </Box>
+          </ListItemButton>
+        </ListItem>
+
+        {/* العناصر الفرعية - المركز الإعلامي */}
+        <Collapse
+          in={openMobileMedia}
+          timeout="auto"
+          unmountOnExit
         >
-          <ListItemText primary="المركز الإعلامي" />
-        </ListItemButton>
-      </ListItem>
-
-      <Collapse in={openMobileMedia}>
-        <List disablePadding>
-          {mediaCenter.map((item) => (
-            <ListItem key={item.path} disablePadding sx={{ pr: 3 }}>
-              <ListItemButton
-                component={Link}
-                to={item.path}
-                onClick={toggleDrawer(false)}
+          <List
+            disablePadding
+            sx={{
+              mr: 1.5,
+              mb: 1,
+              borderRight: "3px solid #f0b429",
+            }}
+          >
+            {mediaCenter.map((item) => (
+              <ListItem
+                key={item.path}
+                disablePadding
               >
-                <ListItemText primary={item.label} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Collapse>
+                <ListItemButton
+                  component={Link}
+                  to={item.path}
+                  onClick={toggleDrawer(false)}
+                  sx={{
+                    minHeight: 44,
+                    px: 2,
+                    borderRadius: "0 8px 8px 0",
+                    direction: "rtl",
 
-      {/* تواصل معنا */}
-      <ListItem disablePadding>
-        <ListItemButton
-          onClick={() => {
-            setOpenContactModal(true);
-            setOpenDrawer(false);
-          }}
-        >
-          <ListItemText primary="تواصل معنا" />
-        </ListItemButton>
-      </ListItem>
+                    "&:hover": {
+                      backgroundColor: "rgba(240,180,41,0.08)",
+                    },
+                  }}
+                >
+                  <Box
+                    component="span"
+                    sx={{
+                      width: 6,
+                      height: 6,
+                      borderRadius: "50%",
+                      backgroundColor: "#f0b429",
+                      ml: 1.5,
+                      flexShrink: 0,
+                    }}
+                  />
 
-      {/* التبرع */}
-      <ListItem disablePadding>
-        <ListItemButton
-          onClick={() => {
-            setOpenDonateModal(true);
-            setOpenDrawer(false);
-          }}
-        >
-          <ListItemText primary="التبرع" />
-        </ListItemButton>
-      </ListItem>
+                  <ListItemText
+                    primary={item.label}
+                    sx={{
+                      textAlign: "right",
+                      "& .MuiListItemText-primary": {
+                        fontFamily: "Almarai",
+                        fontSize: "14px",
+                        fontWeight: 500,
+                        color: "#555",
+                      },
+                    }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </Collapse>
 
-    </List>
+        {/* =========================
+            تواصل معنا
+        ========================= */}
+        <ListItem disablePadding sx={{ mb: 0.5 }}>
+          <ListItemButton
+            onClick={() => {
+              setOpenContactModal(true);
+              setOpenDrawer(false);
+            }}
+            sx={{
+              minHeight: 52,
+              borderRadius: 2,
+              px: 2,
+              direction: "rtl",
+
+              "&:hover": {
+                backgroundColor: "rgba(52,58,98,0.07)",
+              },
+            }}
+          >
+            <ListItemText
+              primary="تواصل معنا"
+              sx={{
+                textAlign: "right",
+                "& .MuiListItemText-primary": {
+                  fontFamily: "Almarai",
+                  fontSize: "16px",
+                  fontWeight: 700,
+                  color: "#343a62",
+                },
+              }}
+            />
+          </ListItemButton>
+        </ListItem>
+
+        {/* =========================
+            التبرع
+        ========================= */}
+        <ListItem disablePadding sx={{ mt: 1 }}>
+          <ListItemButton
+            onClick={() => {
+              setOpenDonateModal(true);
+              setOpenDrawer(false);
+            }}
+            sx={{
+              minHeight: 52,
+              borderRadius: 2,
+              px: 2,
+              direction: "rtl",
+              backgroundColor: "#f0b429",
+              color: "#fff",
+
+              "&:hover": {
+                backgroundColor: "#d9a20e",
+              },
+            }}
+          >
+            <ListItemText
+              primary="التبرع"
+              sx={{
+                textAlign: "right",
+                "& .MuiListItemText-primary": {
+                  fontFamily: "Almarai",
+                  fontSize: "16px",
+                  fontWeight: 700,
+                },
+              }}
+            />
+          </ListItemButton>
+        </ListItem>
+
+      </List>
+    </Box>
+
+    {/* =========================
+        Footer
+    ========================= */}
+    <Box
+      sx={{
+        px: 2,
+        py: 1.5,
+        textAlign: "center",
+        borderTop: "1px solid #eee",
+        backgroundColor: "#fafafa",
+      }}
+    >
+      <Typography
+        sx={{
+          fontFamily: "Almarai",
+          fontSize: 11,
+          color: "#888",
+        }}
+      >
+        مؤسسة بنت الريف
+      </Typography>
+    </Box>
 
   </Box>
 </Drawer>
 
-      {/* 🔥 Contact Modal */}
-      <Dialog
-        open={openContactModal}
-        onClose={() => setOpenContactModal(false)}
-        fullWidth
-        maxWidth="sm"
+
+{/* =========================
+    Contact Modal
+========================= */}
+<Dialog
+  open={openContactModal}
+  onClose={() => setOpenContactModal(false)}
+  fullWidth
+  maxWidth="sm"
+  PaperProps={{
+    sx: {
+      borderRadius: 3,
+      direction: "rtl",
+    },
+  }}
+>
+  <DialogTitle
+    sx={{
+      textAlign: "center",
+      fontWeight: 800,
+      fontFamily: "Almarai",
+      color: "#343a62",
+      pb: 1,
+    }}
+  >
+    تواصل معنا
+  </DialogTitle>
+
+  <DialogContent>
+    <Box
+      sx={{
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+        py: 1,
+      }}
+    >
+      <Typography
+        sx={{
+          fontFamily: "Almarai",
+          color: "#555",
+        }}
       >
-        <DialogTitle sx={{ textAlign: "center", fontWeight: "bold" }}>
-          تواصل معنا
-        </DialogTitle>
+        📍 حضرموت ـ القطن ـ خلف جامع القطن
+      </Typography>
 
-        <DialogContent>
-          <Box sx={{ textAlign: "center", display: "flex", flexDirection: "column", gap: 2 }}>
-            <Typography>📍 حضرموت ـ القطن ـ خلف جامع القطن</Typography>
-            <Typography sx={{ fontWeight: "bold", color: "#f0b429" }}>
-              📞 05/456845 - 770444670 - 777127708
-            </Typography>
-            <Typography>✉️ bintalriayf2019@gmail.com
-
-</Typography>
-          </Box>
-        </DialogContent>
-
-        <DialogActions sx={{ justifyContent: "center" }}>
-          <Button onClick={() => setOpenContactModal(false)} variant="contained">
-            إغلاق
-          </Button>
-        </DialogActions>
-      </Dialog>
-
-      {/* 🔥 Donate Modal */}
-      <Dialog
-        open={openDonateModal}
-        onClose={() => setOpenDonateModal(false)}
-        fullWidth
-        maxWidth="sm"
+      <Typography
+        sx={{
+          fontFamily: "Almarai",
+          fontWeight: 700,
+          color: "#f0b429",
+        }}
       >
-        <DialogTitle sx={{ textAlign: "center", fontWeight: "bold" }}>
-          التبرع
-        </DialogTitle>
+        📞 05/456845 - 770444670 - 777127708
+      </Typography>
 
-        <DialogContent>
-          <Box sx={{ textAlign: "center", display: "flex", flexDirection: "column", gap: 3 }}>
+      <Typography
+        sx={{
+          fontFamily: "Almarai",
+          color: "#555",
+          wordBreak: "break-word",
+        }}
+      >
+        ✉️ bintalriayf2019@gmail.com
+      </Typography>
+    </Box>
+  </DialogContent>
 
-            <Box>
-              <Typography sx={{ fontWeight: "bold", color: "#f0b429" }}>
-                مصرف اليمن البحرين الشامل
-              </Typography>
-              <Typography>1700355</Typography>
-            </Box>
+  <DialogActions
+    sx={{
+      justifyContent: "center",
+      pb: 2,
+    }}
+  >
+    <Button
+      onClick={() => setOpenContactModal(false)}
+      variant="contained"
+      sx={{
+        backgroundColor: "#343a62",
+        fontFamily: "Almarai",
+        borderRadius: 2,
+        px: 4,
 
-          </Box>
-        </DialogContent>
+        "&:hover": {
+          backgroundColor: "#282d4d",
+        },
+      }}
+    >
+      إغلاق
+    </Button>
+  </DialogActions>
+</Dialog>
 
-        <DialogActions sx={{ justifyContent: "center" }}>
-          <Button onClick={() => setOpenDonateModal(false)} variant="contained">
-            إغلاق
-          </Button>
-        </DialogActions>
-      </Dialog>
+
+{/* =========================
+    Donate Modal
+========================= */}
+<Dialog
+  open={openDonateModal}
+  onClose={() => setOpenDonateModal(false)}
+  fullWidth
+  maxWidth="sm"
+  PaperProps={{
+    sx: {
+      borderRadius: 3,
+      direction: "rtl",
+    },
+  }}
+>
+  <DialogTitle
+    sx={{
+      textAlign: "center",
+      fontWeight: 800,
+      fontFamily: "Almarai",
+      color: "#343a62",
+      pb: 1,
+    }}
+  >
+    التبرع
+  </DialogTitle>
+
+  <DialogContent>
+    <Box
+      sx={{
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "column",
+        gap: 3,
+        py: 1,
+      }}
+    >
+      <Box
+        sx={{
+          backgroundColor: "rgba(240,180,41,0.08)",
+          border: "1px solid rgba(240,180,41,0.25)",
+          borderRadius: 3,
+          p: 2.5,
+        }}
+      >
+        <Typography
+          sx={{
+            fontFamily: "Almarai",
+            fontWeight: 800,
+            color: "#343a62",
+            mb: 1,
+          }}
+        >
+          مصرف اليمن البحرين الشامل
+        </Typography>
+
+        <Typography
+          sx={{
+            fontFamily: "Almarai",
+            fontSize: 22,
+            fontWeight: 800,
+            color: "#f0b429",
+            letterSpacing: 1,
+          }}
+        >
+          1700355
+        </Typography>
+      </Box>
+    </Box>
+  </DialogContent>
+
+  <DialogActions
+    sx={{
+      justifyContent: "center",
+      pb: 2,
+    }}
+  >
+    <Button
+      onClick={() => setOpenDonateModal(false)}
+      variant="contained"
+      sx={{
+        backgroundColor: "#343a62",
+        fontFamily: "Almarai",
+        borderRadius: 2,
+        px: 4,
+
+        "&:hover": {
+          backgroundColor: "#282d4d",
+        },
+      }}
+    >
+      إغلاق
+    </Button>
+  </DialogActions>
+</Dialog>
     </>
   );
 }
