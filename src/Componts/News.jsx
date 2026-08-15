@@ -40,11 +40,13 @@ const News = () => {
   const [loading, setLoading] = useState(true);
 
   // ==============================
-  // Contentful Environment
+  // Contentful
   // ==============================
   const SPACE_ID = import.meta.env.VITE_CONTENTFUL_SPACE_ID;
-  const ACCESS_TOKEN = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN;
-  const ENVIRONMENT = import.meta.env.VITE_CONTENTFUL_ENVIRONMENT;
+  const ACCESS_TOKEN =
+    import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN;
+  const ENVIRONMENT =
+    import.meta.env.VITE_CONTENTFUL_ENVIRONMENT;
 
   // ==============================
   // تنسيق التاريخ
@@ -68,25 +70,39 @@ const News = () => {
   };
 
   // ==============================
-  // جلب الأخبار من Contentful
+  // جلب الأخبار
   // ==============================
   useEffect(() => {
     const fetchNews = async () => {
       try {
         setLoading(true);
 
-        // --------------------------------
-        // فحص Environment Variables
-        // --------------------------------
-        console.log("========== CONTENTFUL CONFIG ==========");
+        // ==============================
+        // فحص إعدادات Contentful
+        // ==============================
+        console.log(
+          "========== CONTENTFUL CONFIG =========="
+        );
+
         console.log("SPACE_ID:", SPACE_ID);
-        console.log("ENVIRONMENT:", ENVIRONMENT);
+
+        console.log(
+          "ENVIRONMENT:",
+          ENVIRONMENT
+        );
+
         console.log(
           "ACCESS_TOKEN موجود:",
           ACCESS_TOKEN ? "YES" : "NO"
         );
-        console.log("======================================");
 
+        console.log(
+          "======================================"
+        );
+
+        // ==============================
+        // GraphQL Request
+        // ==============================
         const response = await fetch(
           `https://graphql.contentful.com/content/v1/spaces/${SPACE_ID}/environments/${ENVIRONMENT}`,
           {
@@ -130,9 +146,9 @@ const News = () => {
           }
         );
 
-        // --------------------------------
+        // ==============================
         // HTTP Status
-        // --------------------------------
+        // ==============================
         console.log(
           "CONTENTFUL HTTP STATUS:",
           response.status
@@ -143,37 +159,41 @@ const News = () => {
           response.ok
         );
 
-        // --------------------------------
+        // ==============================
         // قراءة Response
-        // --------------------------------
+        // ==============================
         const data = await response.json();
 
-        // --------------------------------
-        // عرض الرد الكامل
-        // --------------------------------
+        // ==============================
+        // عرض Response كامل كنص
+        // ==============================
         console.log(
           "========== CONTENTFUL RESPONSE =========="
         );
 
         console.log(
-          "CONTENTFUL RESPONSE:",
-          data
+          "CONTENTFUL RESPONSE JSON:",
+          JSON.stringify(data, null, 2)
         );
 
         console.log(
           "========================================="
         );
 
-        // --------------------------------
-        // فحص GraphQL Errors
-        // --------------------------------
+        // ==============================
+        // GraphQL Errors
+        // ==============================
         if (data?.errors) {
           console.error(
             "========== CONTENTFUL ERRORS =========="
           );
 
           console.error(
-            data.errors
+            JSON.stringify(
+              data.errors,
+              null,
+              2
+            )
           );
 
           console.error(
@@ -181,9 +201,9 @@ const News = () => {
           );
         }
 
-        // --------------------------------
-        // الأخبار
-        // --------------------------------
+        // ==============================
+        // استخراج الأخبار
+        // ==============================
         const items =
           data?.data?.newsCollection?.items || [];
 
@@ -205,9 +225,9 @@ const News = () => {
           "================================"
         );
 
-        // --------------------------------
-        // عرض كل خبر وتاريخه
-        // --------------------------------
+        // ==============================
+        // عرض بيانات كل خبر
+        // ==============================
         items.forEach((item, index) => {
           console.log(
             `NEWS ${index + 1}:`,
@@ -219,9 +239,9 @@ const News = () => {
           );
         });
 
-        // --------------------------------
+        // ==============================
         // حفظ الأخبار
-        // --------------------------------
+        // ==============================
         setNews(items);
       } catch (error) {
         console.error(
@@ -397,7 +417,7 @@ const News = () => {
                   </Typography>
                 </Box>
 
-                {/* التفاصيل */}
+                {/* زر التفاصيل */}
                 <Box sx={{ mt: 1 }}>
                   <Button
                     variant="text"
@@ -418,7 +438,8 @@ const News = () => {
                       "&:hover": {
                         backgroundColor:
                           "#f0e6ff",
-                        color: "#bda355ff",
+                        color:
+                          "#bda355ff",
                       },
                     }}
                   >
