@@ -12,9 +12,11 @@ import {
   Divider,
 } from "@mui/material";
 import LoadingDots from "./LoadingDots";
-import { Helmet } from "react-helmet";
 
 const News = () => {
+  // ==============================
+  // SEO
+  // ==============================
   useEffect(() => {
     document.title = "مؤسسة بنت الريف";
 
@@ -31,18 +33,26 @@ const News = () => {
     }
   }, []);
 
+  // ==============================
+  // State
+  // ==============================
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // ==============================
+  // Contentful Environment
+  // ==============================
   const SPACE_ID = import.meta.env.VITE_CONTENTFUL_SPACE_ID;
   const ACCESS_TOKEN = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN;
   const ENVIRONMENT = import.meta.env.VITE_CONTENTFUL_ENVIRONMENT;
 
-  // ==========================================
-  // تنسيق التاريخ بشكل آمن
-  // ==========================================
+  // ==============================
+  // تنسيق التاريخ
+  // ==============================
   const formatDate = (date) => {
-    if (!date) return "بدون تاريخ";
+    if (!date) {
+      return "بدون تاريخ";
+    }
 
     const parsedDate = new Date(date);
 
@@ -57,35 +67,56 @@ const News = () => {
     });
   };
 
-  // ==========================================
-  // جلب الأخبار
-  // ==========================================
+  // ==============================
+  // جلب الأخبار من Contentful
+  // ==============================
   useEffect(() => {
     const fetchNews = async () => {
       try {
         setLoading(true);
 
+        // --------------------------------
+        // فحص Environment Variables
+        // --------------------------------
+        console.log("========== CONTENTFUL CONFIG ==========");
+        console.log("SPACE_ID:", SPACE_ID);
+        console.log("ENVIRONMENT:", ENVIRONMENT);
+        console.log(
+          "ACCESS_TOKEN موجود:",
+          ACCESS_TOKEN ? "YES" : "NO"
+        );
+        console.log("======================================");
+
         const response = await fetch(
           `https://graphql.contentful.com/content/v1/spaces/${SPACE_ID}/environments/${ENVIRONMENT}`,
           {
             method: "POST",
+
             headers: {
               "Content-Type": "application/json",
               Authorization: `Bearer ${ACCESS_TOKEN}`,
             },
+
             body: JSON.stringify({
               query: `
                 {
-                  newsCollection(limit: 5, order: date_DESC) {
+                  newsCollection(
+                    limit: 5
+                    order: date_DESC
+                  ) {
                     items {
                       sys {
                         id
                       }
+
                       titel
+
                       paragraf {
                         json
                       }
+
                       date
+
                       imges {
                         url
                         title
@@ -99,48 +130,134 @@ const News = () => {
           }
         );
 
+        // --------------------------------
+        // HTTP Status
+        // --------------------------------
+        console.log(
+          "CONTENTFUL HTTP STATUS:",
+          response.status
+        );
+
+        console.log(
+          "CONTENTFUL RESPONSE OK:",
+          response.ok
+        );
+
+        // --------------------------------
+        // قراءة Response
+        // --------------------------------
         const data = await response.json();
 
-        // إظهار أخطاء Contentful في Console
-        if (data.errors) {
-          console.error("Contentful GraphQL Errors:", data.errors);
-          throw new Error(
-            data.errors[0]?.message || "Contentful GraphQL Error"
+        // --------------------------------
+        // عرض الرد الكامل
+        // --------------------------------
+        console.log(
+          "========== CONTENTFUL RESPONSE =========="
+        );
+
+        console.log(
+          "CONTENTFUL RESPONSE:",
+          data
+        );
+
+        console.log(
+          "========================================="
+        );
+
+        // --------------------------------
+        // فحص GraphQL Errors
+        // --------------------------------
+        if (data?.errors) {
+          console.error(
+            "========== CONTENTFUL ERRORS =========="
+          );
+
+          console.error(
+            data.errors
+          );
+
+          console.error(
+            "======================================="
           );
         }
 
-        const items = data?.data?.newsCollection?.items || [];
+        // --------------------------------
+        // الأخبار
+        // --------------------------------
+        const items =
+          data?.data?.newsCollection?.items || [];
 
-        // عرض الأخبار التي وصلت من Contentful للتأكد من التواريخ
         console.log(
-          "News:",
-          items.map((item) => ({
-            id: item.sys.id,
-            title: item.titel,
-            date: item.date,
-          }))
+          "========== NEWS ITEMS =========="
         );
 
+        console.log(
+          "NEWS ITEMS:",
+          items
+        );
+
+        console.log(
+          "NEWS COUNT:",
+          items.length
+        );
+
+        console.log(
+          "================================"
+        );
+
+        // --------------------------------
+        // عرض كل خبر وتاريخه
+        // --------------------------------
+        items.forEach((item, index) => {
+          console.log(
+            `NEWS ${index + 1}:`,
+            {
+              id: item?.sys?.id,
+              title: item?.titel,
+              date: item?.date,
+            }
+          );
+        });
+
+        // --------------------------------
+        // حفظ الأخبار
+        // --------------------------------
         setNews(items);
-      } catch (err) {
-        console.error("Error fetching news:", err);
+      } catch (error) {
+        console.error(
+          "========== FETCH NEWS ERROR =========="
+        );
+
+        console.error(error);
+
+        console.error(
+          "======================================"
+        );
+
         setNews([]);
       } finally {
-        setTimeout(() => setLoading(false), 500);
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
       }
     };
 
     fetchNews();
   }, [SPACE_ID, ACCESS_TOKEN, ENVIRONMENT]);
 
-  // ==========================================
+  // ==============================
   // استخراج ملخص الخبر
-  // ==========================================
+  // ==============================
   const getExcerpt = (json) => {
-    if (!json) return "";
+    if (!json) {
+      return "";
+    }
 
     try {
-      const text = documentToReactComponents(json)
+      const components =
+        documentToReactComponents(json);
+
+      const text = components
         .map((el) => {
           if (typeof el === "string") {
             return el;
@@ -150,20 +267,29 @@ const News = () => {
         })
         .join(" ");
 
-      return text.length > 200 ? text.slice(0, 200) + "..." : text;
+      return text.length > 200
+        ? text.slice(0, 200) + "..."
+        : text;
     } catch (error) {
-      console.error("Error reading news content:", error);
+      console.error(
+        "Error extracting news excerpt:",
+        error
+      );
+
       return "";
     }
   };
 
-  // ==========================================
+  // ==============================
   // Loading
-  // ==========================================
+  // ==============================
   if (loading) {
     return <LoadingDots />;
   }
 
+  // ==============================
+  // الصفحة
+  // ==============================
   return (
     <>
       <Container>
@@ -203,6 +329,7 @@ const News = () => {
                 fontFamily: `"Almarai", sans-serif`,
               }}
             >
+              {/* الصورة */}
               {item.imges?.url && (
                 <CardMedia
                   component="img"
@@ -211,7 +338,10 @@ const News = () => {
                     objectFit: "cover",
                   }}
                   image={item.imges.url}
-                  alt={item.imges.title || item.titel}
+                  alt={
+                    item.imges.title ||
+                    item.titel
+                  }
                 />
               )}
 
@@ -235,7 +365,7 @@ const News = () => {
                     {formatDate(item.date)}
                   </Typography>
 
-                  {/* عنوان الخبر */}
+                  {/* العنوان */}
                   <Typography
                     variant="h6"
                     sx={{
@@ -247,7 +377,7 @@ const News = () => {
                     {item.titel}
                   </Typography>
 
-                  {/* ملخص الخبر */}
+                  {/* الملخص */}
                   <Typography
                     variant="body2"
                     sx={{
@@ -261,11 +391,13 @@ const News = () => {
                       mt: 1,
                     }}
                   >
-                    {getExcerpt(item.paragraf?.json)}
+                    {getExcerpt(
+                      item.paragraf?.json
+                    )}
                   </Typography>
                 </Box>
 
-                {/* زر التفاصيل */}
+                {/* التفاصيل */}
                 <Box sx={{ mt: 1 }}>
                   <Button
                     variant="text"
@@ -280,10 +412,12 @@ const News = () => {
                       borderRadius: 2,
                       px: 2,
                       py: 1,
-                      transition: "all 0.3s ease",
+                      transition:
+                        "all 0.3s ease",
 
                       "&:hover": {
-                        backgroundColor: "#f0e6ff",
+                        backgroundColor:
+                          "#f0e6ff",
                         color: "#bda355ff",
                       },
                     }}
