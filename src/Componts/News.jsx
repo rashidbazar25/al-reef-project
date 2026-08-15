@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import {
   Card,
-  CardMedia,
   CardContent,
   Typography,
   Button,
@@ -49,7 +47,7 @@ const News = () => {
     import.meta.env.VITE_CONTENTFUL_ENVIRONMENT;
 
   // ==============================
-  // تنسيق التاريخ
+  // التاريخ
   // ==============================
   const formatDate = (date) => {
     if (!date) {
@@ -58,7 +56,7 @@ const News = () => {
 
     const parsedDate = new Date(date);
 
-    if (isNaN(parsedDate.getTime())) {
+    if (Number.isNaN(parsedDate.getTime())) {
       return "تاريخ غير صالح";
     }
 
@@ -77,19 +75,12 @@ const News = () => {
       try {
         setLoading(true);
 
-        // ==============================
-        // فحص إعدادات Contentful
-        // ==============================
         console.log(
           "========== CONTENTFUL CONFIG =========="
         );
 
         console.log("SPACE_ID:", SPACE_ID);
-
-        console.log(
-          "ENVIRONMENT:",
-          ENVIRONMENT
-        );
+        console.log("ENVIRONMENT:", ENVIRONMENT);
 
         console.log(
           "ACCESS_TOKEN موجود:",
@@ -100,9 +91,37 @@ const News = () => {
           "======================================"
         );
 
-        // ==============================
-        // GraphQL Request
-        // ==============================
+        // ==========================================
+        // اختبار بسيط جدًا
+        // فقط ID + العنوان + التاريخ
+        // ==========================================
+        const query = `
+          {
+            newsCollection(limit: 5) {
+              items {
+                sys {
+                  id
+                }
+                titel
+                date
+              }
+            }
+          }
+        `;
+
+        console.log(
+          "========== CONTENTFUL QUERY =========="
+        );
+
+        console.log(query);
+
+        console.log(
+          "======================================"
+        );
+
+        // ==========================================
+        // الطلب
+        // ==========================================
         const response = await fetch(
           `https://graphql.contentful.com/content/v1/spaces/${SPACE_ID}/environments/${ENVIRONMENT}`,
           {
@@ -114,41 +133,14 @@ const News = () => {
             },
 
             body: JSON.stringify({
-              query: `
-                {
-                  newsCollection(
-                    limit: 5
-                    order: date_DESC
-                  ) {
-                    items {
-                      sys {
-                        id
-                      }
-
-                      titel
-
-                      paragraf {
-                        json
-                      }
-
-                      date
-
-                      imges {
-                        url
-                        title
-                        description
-                      }
-                    }
-                  }
-                }
-              `,
+              query,
             }),
           }
         );
 
-        // ==============================
-        // HTTP Status
-        // ==============================
+        // ==========================================
+        // HTTP
+        // ==========================================
         console.log(
           "CONTENTFUL HTTP STATUS:",
           response.status
@@ -159,20 +151,19 @@ const News = () => {
           response.ok
         );
 
-        // ==============================
-        // قراءة Response
-        // ==============================
+        // ==========================================
+        // قراءة الرد
+        // ==========================================
         const data = await response.json();
 
-        // ==============================
-        // عرض Response كامل كنص
-        // ==============================
+        // ==========================================
+        // الرد الكامل
+        // ==========================================
         console.log(
           "========== CONTENTFUL RESPONSE =========="
         );
 
         console.log(
-          "CONTENTFUL RESPONSE JSON:",
           JSON.stringify(data, null, 2)
         );
 
@@ -180,9 +171,9 @@ const News = () => {
           "========================================="
         );
 
-        // ==============================
-        // GraphQL Errors
-        // ==============================
+        // ==========================================
+        // الأخطاء
+        // ==========================================
         if (data?.errors) {
           console.error(
             "========== CONTENTFUL ERRORS =========="
@@ -201,9 +192,9 @@ const News = () => {
           );
         }
 
-        // ==============================
-        // استخراج الأخبار
-        // ==============================
+        // ==========================================
+        // الأخبار
+        // ==========================================
         const items =
           data?.data?.newsCollection?.items || [];
 
@@ -211,10 +202,7 @@ const News = () => {
           "========== NEWS ITEMS =========="
         );
 
-        console.log(
-          "NEWS ITEMS:",
-          items
-        );
+        console.log(items);
 
         console.log(
           "NEWS COUNT:",
@@ -225,9 +213,9 @@ const News = () => {
           "================================"
         );
 
-        // ==============================
-        // عرض بيانات كل خبر
-        // ==============================
+        // ==========================================
+        // عرض الأخبار في Console
+        // ==========================================
         items.forEach((item, index) => {
           console.log(
             `NEWS ${index + 1}:`,
@@ -239,9 +227,9 @@ const News = () => {
           );
         });
 
-        // ==============================
+        // ==========================================
         // حفظ الأخبار
-        // ==============================
+        // ==========================================
         setNews(items);
       } catch (error) {
         console.error(
@@ -264,41 +252,6 @@ const News = () => {
 
     fetchNews();
   }, [SPACE_ID, ACCESS_TOKEN, ENVIRONMENT]);
-
-  // ==============================
-  // استخراج ملخص الخبر
-  // ==============================
-  const getExcerpt = (json) => {
-    if (!json) {
-      return "";
-    }
-
-    try {
-      const components =
-        documentToReactComponents(json);
-
-      const text = components
-        .map((el) => {
-          if (typeof el === "string") {
-            return el;
-          }
-
-          return el?.props?.children || "";
-        })
-        .join(" ");
-
-      return text.length > 200
-        ? text.slice(0, 200) + "..."
-        : text;
-    } catch (error) {
-      console.error(
-        "Error extracting news excerpt:",
-        error
-      );
-
-      return "";
-    }
-  };
 
   // ==============================
   // Loading
@@ -337,7 +290,7 @@ const News = () => {
         >
           {news.map((item) => (
             <Card
-              key={item.sys.id}
+              key={item?.sys?.id}
               sx={{
                 display: "flex",
                 flexDirection: "column",
@@ -349,22 +302,6 @@ const News = () => {
                 fontFamily: `"Almarai", sans-serif`,
               }}
             >
-              {/* الصورة */}
-              {item.imges?.url && (
-                <CardMedia
-                  component="img"
-                  sx={{
-                    height: 140,
-                    objectFit: "cover",
-                  }}
-                  image={item.imges.url}
-                  alt={
-                    item.imges.title ||
-                    item.titel
-                  }
-                />
-              )}
-
               <CardContent
                 sx={{
                   flex: 1,
@@ -379,10 +316,10 @@ const News = () => {
                     variant="subtitle2"
                     sx={{
                       fontWeight: 500,
-                      color: "#343a62ff",
+                      color: "#343a62",
                     }}
                   >
-                    {formatDate(item.date)}
+                    {formatDate(item?.date)}
                   </Typography>
 
                   {/* العنوان */}
@@ -390,40 +327,21 @@ const News = () => {
                     variant="h6"
                     sx={{
                       fontWeight: "bold",
-                      color: "#343a62ff",
+                      color: "#343a62",
                       mt: 0.5,
                     }}
                   >
-                    {item.titel}
-                  </Typography>
-
-                  {/* الملخص */}
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      display: "-webkit-box",
-                      WebkitLineClamp: 4,
-                      WebkitBoxOrient: "vertical",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      color: "#777",
-                      lineHeight: 1.5,
-                      mt: 1,
-                    }}
-                  >
-                    {getExcerpt(
-                      item.paragraf?.json
-                    )}
+                    {item?.titel || "بدون عنوان"}
                   </Typography>
                 </Box>
 
-                {/* زر التفاصيل */}
-                <Box sx={{ mt: 1 }}>
+                {/* التفاصيل */}
+                <Box sx={{ mt: 2 }}>
                   <Button
                     variant="text"
                     size="small"
                     component={Link}
-                    to={`/news/${item.sys.id}?type=news`}
+                    to={`/news/${item?.sys?.id}?type=news`}
                     sx={{
                       fontSize: "18px",
                       fontWeight: "bold",
@@ -432,14 +350,11 @@ const News = () => {
                       borderRadius: 2,
                       px: 2,
                       py: 1,
-                      transition:
-                        "all 0.3s ease",
+                      transition: "all 0.3s ease",
 
                       "&:hover": {
-                        backgroundColor:
-                          "#f0e6ff",
-                        color:
-                          "#bda355ff",
+                        backgroundColor: "#f0e6ff",
+                        color: "#bda355",
                       },
                     }}
                   >
@@ -450,6 +365,20 @@ const News = () => {
             </Card>
           ))}
         </Box>
+
+        {news.length === 0 && (
+          <Box
+            sx={{
+              textAlign: "center",
+              py: 6,
+              color: "#777",
+            }}
+          >
+            <Typography>
+              لا توجد أخبار لعرضها
+            </Typography>
+          </Box>
+        )}
 
         <Divider
           sx={{
